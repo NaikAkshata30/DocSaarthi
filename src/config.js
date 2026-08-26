@@ -1,0 +1,2 @@
+export const config={port:Number(process.env.PORT||4173),maxFileBytes:Number(process.env.MAX_FILE_MB||20)*1048576,apiKey:process.env.OPENAI_API_KEY||'',model:process.env.OPENAI_MODEL||'gpt-5-mini',sarvamApiKey:process.env.SARVAM_API_KEY||'',datasetPath:process.env.HINDI_NLP_DATASET||'C:\\Users\\aksha\\Downloads\\TYCM2_23,30_NLP_Annotated-DataSet.csv'};
+export const DISCLAIMER='DocSaarthi provides AI-powered document analysis and information extraction. It is not a substitute for professional legal, financial, or tax advice.';

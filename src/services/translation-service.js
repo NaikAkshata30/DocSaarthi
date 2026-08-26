@@ -1,0 +1,46 @@
+import{config}from'../config.js';
+
+const ENDPOINT='https://api.sarvam.ai/translate',MODEL='sarvam-translate:v1',LIMIT=2000;
+export class TranslationProviderError extends Error{constructor(message,{code='TRANSLATION_PROVIDER_ERROR',status=502,providerCode=null}={}){super(message);this.name='TranslationProviderError';this.code=code;this.status=status;this.provider='sarvam';this.providerCode=providerCode}}
+export class TranslationUnavailableError extends TranslationProviderError{constructor(){super('Sarvam translation is not configured.',{code:'SARVAM_KEY_MISSING',status:503})}}
+export class TranslationQualityError extends TranslationProviderError{constructor(message){super(message,{code:'TRANSLATION_QUALITY_FAILED',status:502})}}
+
+const latinWords=text=>text.match(/[A-Za-z][A-Za-z0-9&.'/-]*/g)||[];
+const devanagariCount=text=>(text.match(/[\u0900-\u097F]/g)||[]).length;
+const significantValues=text=>text.match(/(?:₹|Rs\.?|RS\.?|INR|USD|\$)\s?[\d,]*\d(?:\.\d{1,2})?|[\d,]*\d\s*(?:रुपये|रुपए|रुपया)|\b\d+(?:\.\d+)?\s?%|\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b|\b(?:PAN|TDS|IFSC|RBI|SEBI|GST|PDF|URL|[A-Z]{2,}\d[A-Z0-9/-]*)\b/g)||[];
+const allowedLatin=text=>new Set(latinWords(text).filter((word,index)=>/^[A-Z0-9]{2,}(?:[/-][A-Z0-9]+)*$/.test(word)||/[a-z][A-Z]/.test(word)||(/[A-Z]/.test(word[0])&&index>0)).map(word=>word.toLowerCase()));
+const normalized=value=>value.toLowerCase().replace(/\s+/g,'').replace(/rs\.?/g,'₹').replace(/inr/g,'₹').replace(/([\d,]+)(?:रुपये|रुपए|रुपया)/g,'₹$1');
+
+export function validateHindiTranslation(source,translation){
+  if(devanagariCount(translation)<Math.max(8,Math.floor(source.length*.08)))return{valid:false,reason:'The result does not contain enough Devanagari Hindi.'};
+  const allowed=allowedLatin(source),leftovers=latinWords(translation).filter(word=>word.length>1&&!allowed.has(word.toLowerCase())&&!/^(EMI|GST|PAN|TDS|IFSC|RBI|SEBI|PDF|URL)$/i.test(word));
+  if(leftovers.length>Math.max(1,Math.floor(translation.trim().split(/\s+/).length*.03)))return{valid:false,reason:`Too many untranslated English words: ${[...new Set(leftovers)].join(', ')}`};
+  const outputValues=new Set(significantValues(translation).map(normalized)),missing=significantValues(source).filter(value=>!outputValues.has(normalized(value)));
+  if(missing.length)return{valid:false,reason:`Protected values were changed or omitted: ${missing.join(', ')}`};
+  return{valid:true};
+}
+
+function splitLong(value){const pieces=[];for(let i=0;i<value.length;i+=LIMIT)pieces.push(value.slice(i,i+LIMIT));return pieces}
+export function chunkTranslationText(text){
+  const units=text.split(/(?<=[.!?।])\s+|\n{2,}/).filter(Boolean),chunks=[];let current='';
+  for(const unit of units){if(unit.length>LIMIT){if(current){chunks.push(current);current=''}chunks.push(...splitLong(unit));continue}if(current&&current.length+unit.length+1>LIMIT){chunks.push(current);current=unit}else current+=`${current?' ':''}${unit}`}
+  if(current)chunks.push(current);return chunks.length?chunks:[''];
+}
+
+function providerMessage(status){if(status===400)return['Sarvam rejected the translation request.','SARVAM_BAD_REQUEST'];if(status===401||status===403)return['Sarvam authentication failed.','SARVAM_AUTH_FAILED'];if(status===422)return['Sarvam could not process the translation input.','SARVAM_UNPROCESSABLE'];if(status===429)return['Sarvam API quota or rate limit reached.','SARVAM_RATE_LIMITED'];if(status>=500)return['Sarvam translation service is temporarily unavailable.','SARVAM_SERVER_ERROR'];return['Sarvam translation request failed.','SARVAM_PROVIDER_ERROR']}
+async function sarvamTranslate(input,source,target){
+  let response;try{response=await fetch(ENDPOINT,{method:'POST',headers:{'api-subscription-key':config.sarvamApiKey,'Content-Type':'application/json'},body:JSON.stringify({input,source_language_code:source,target_language_code:target,model:MODEL,mode:'formal'})})}catch(error){console.error('[translation]',{provider:'sarvam',operation:'translate',model:MODEL,error:'network_error'});throw new TranslationProviderError('Could not reach Sarvam translation service.',{code:'SARVAM_NETWORK_ERROR',status:502})}
+  let body={};try{body=await response.json()}catch{}
+  if(!response.ok){const providerCode=body.error?.code||body.code||null,[message,code]=providerMessage(response.status);console.error('[translation]',{provider:'sarvam',operation:'translate',model:MODEL,status:response.status,providerCode});throw new TranslationProviderError(message,{code,status:response.status,providerCode})}
+  if(!body.translated_text?.trim())throw new TranslationProviderError('Sarvam returned an invalid translation response.',{code:'SARVAM_INVALID_RESPONSE',status:502});return body.translated_text.trim();
+}
+
+const completed=new Map(),inflight=new Map();
+async function performTranslation(text,target){
+  if(!text?.trim())return{text:'',quality:'empty',provider:'sarvam'};
+  if(!config.sarvamApiKey)throw new TranslationUnavailableError();
+  const source=target==='hi'?'en-IN':'hi-IN',destination=target==='hi'?'hi-IN':'en-IN',output=[];
+  for(const chunk of chunkTranslationText(text)){let translated=await sarvamTranslate(chunk,source,destination);if(target==='hi'){let check=validateHindiTranslation(chunk,translated);if(!check.valid){translated=await sarvamTranslate(chunk,source,destination);check=validateHindiTranslation(chunk,translated);if(!check.valid)throw new TranslationQualityError(check.reason)}}output.push(translated)}
+  return{text:output.join(' '),quality:'provider_validated',provider:'sarvam'};
+}
+export async function translateText(text,target){const key=`${target}:${text}`;if(completed.has(key))return completed.get(key);if(inflight.has(key))return inflight.get(key);const request=performTranslation(text,target).then(result=>{completed.set(key,result);if(completed.size>100)completed.delete(completed.keys().next().value);return result}).finally(()=>inflight.delete(key));inflight.set(key,request);return request}
