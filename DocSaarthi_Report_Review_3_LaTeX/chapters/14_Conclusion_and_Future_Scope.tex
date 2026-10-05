@@ -1,0 +1,20 @@
+\chapter{Conclusion and Future Scope}
+\label{chap:conclusion}
+
+\section{Introduction}
+This chapter concludes the DocSaarthi project by summarizing the implemented outcome, major findings, current limitations, and practical directions for extension.
+
+\section{Project Conclusion}
+DocSaarthi demonstrates an end-to-end bilingual assistant for text-based legal and financial PDFs. It integrates page-level extraction, language and domain detection, structured information extraction, searchable evidence chunks, cross-language question handling, translation, grounded answers, and citations in a web application.
+
+\section{Key Findings}
+Page-linked chunking improves traceability; preserving dates, names, percentages, and currency values is essential for trustworthy bilingual output; intent data must be kept separate from document evidence; and explicit abstention is safer than forcing an answer. On the controlled Review 3 evaluation, all 18 tests passed and all eight holdout documents were correctly classified with correct language detection.
+
+\section{Project Limitations}
+The benchmark is synthetic and too small for general accuracy claims. The system lacks OCR for scanned pages, durable encrypted storage, authentication, calibrated probabilistic confidence, large-scale retrieval evaluation, and formal external human evaluation. Coverage of languages and document types is limited, and the local translation memory cannot translate arbitrary unseen passages.
+
+\section{Future Scope}
+Future work should include licensed real-world evaluation data, OCR with layout preservation, multilingual embeddings or a vector index, calibrated classification, retrieval ranking experiments, secure user-scoped storage, authentication and audit logs, formal human evaluation, support for additional Indian languages, and deployment monitoring. A carefully evaluated domain model may be introduced only after representative data and privacy controls are available.
+
+\section*{Chapter Summary}
+The project meets its academic goal by delivering a functional, transparent, and testable prototype. Its strongest foundation is source grounding; future work should preserve that principle while improving scale, coverage, privacy, and measured quality.

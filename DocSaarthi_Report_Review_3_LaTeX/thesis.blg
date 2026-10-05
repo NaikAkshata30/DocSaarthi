@@ -1,0 +1,31 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: front_matter/title_page.aux
+A level-1 auxiliary file: front_matter/certificate.aux
+A level-1 auxiliary file: front_matter/candidate's_declaration.aux
+A level-1 auxiliary file: front_matter/Certificate_of_Plag_Check.aux
+A level-1 auxiliary file: front_matter/acknowledgements.aux
+A level-1 auxiliary file: front_matter/dedication.aux
+A level-1 auxiliary file: front_matter/Abstract.aux
+A level-1 auxiliary file: chapters/01_Problem_Identification.aux
+A level-1 auxiliary file: chapters/02_Literature_Review.aux
+A level-1 auxiliary file: chapters/03_Dataset_Collection.aux
+A level-1 auxiliary file: chapters/04_Data_Preparation.aux
+A level-1 auxiliary file: chapters/05_NLP_Pipeline_design.aux
+White space in argument---line 39 of file thesis.aux
+ : \@input{chapters/06_NLP_System
+ :                                Implementation.aux}
+I'm skipping whatever remains of this command
+A level-1 auxiliary file: chapters/07_Experimentation_and_Model_Development.aux
+A level-1 auxiliary file: chapters/08_Individual_Technical_Contribution.aux
+A level-1 auxiliary file: chapters/09_Model_Evaluation_and_Validation.aux
+A level-1 auxiliary file: chapters/10_Error_Analysis_and_Model_Improvement.aux
+A level-1 auxiliary file: chapters/11_Final_System_and_Results.aux
+A level-1 auxiliary file: chapters/12_SDG_Sustainability_Safety_and_Societal_Impact.aux
+A level-1 auxiliary file: chapters/13_Project_Management_and_Team_Contribution.aux
+A level-1 auxiliary file: chapters/14_Conclusion_and_Future_Scope.aux
+The style file: ieeetr.bst
+A level-1 auxiliary file: appendices/appendix.aux
+Database file #1: references.bib
+(There was 1 error message)

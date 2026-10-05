@@ -1,0 +1,16 @@
+\chapter{Supporting Evidence}
+
+\section{Dataset Samples}
+The project dataset contains 400 Hindi intent records. The verified distribution is: Agreement 40, Payment 20, Court Proceeding 80, Confidentiality 40, General 60, Finance 100, Loan 20, Tax 20, and Insurance 20. Records are used for intent support only and not as document evidence.
+
+\section{Preprocessing Examples}
+Verified preprocessing cases include repair of sentence-breaking PDF line breaks, preservation of Devanagari combining marks, Unicode normalization, and page-linked evidence chunking. Original source text is retained for verification.
+
+\section{Experimental Logs}
+The final automated run reports 18 tests, 18 passes, and zero failures. The classifier evaluation reports eight labelled samples, 100\% classification accuracy, macro-F1 1.00, and 100\% language-detection accuracy. These results apply only to the controlled synthetic benchmark.
+
+\section{Additional Results}
+Additional validated behaviors include English-to-Hindi retrieval, Hindi-to-English retrieval, preservation of ₹ amounts, percentages, dates, and names, safe handling of unavailable translation, and abstention when a requested fact is absent.
+
+\section{Individual Contribution Evidence}
+Evidence includes source modules, test cases, evaluation scripts, bilingual sample PDFs, result logs, interface screenshots, and report chapters. Chapter 8 records task-level contributions and Chapter 13 summarizes Review 3 responsibilities.

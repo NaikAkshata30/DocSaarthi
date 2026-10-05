@@ -1,0 +1,150 @@
+\documentclass[12pt,a4paper]{report}
+
+%====================================================
+% Packages
+%====================================================
+\usepackage[top=25mm,bottom=22mm,left=30mm,right=25mm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathptmx}
+\usepackage{fontspec}
+\IfFontExistsTF{FreeSerif}
+  {\setmainfont{FreeSerif}}
+  {\setmainfont{Nirmala UI}} % Windows fallback with Latin and Devanagari support
+\usepackage{blindtext}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{multirow}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{tocloft}
+\usepackage[nottoc]{tocbibind}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[english]{babel}
+\usepackage{zref-lastpage}
+\usepackage{pdfpages}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+\usepackage{array}
+\input{config.tex}
+
+%====================================================
+% Chapter/Section Formatting
+%====================================================
+% \titleformat{\chapter}[hang]
+% {\Huge\bfseries}
+% {\chaptername\ \thechapter}
+% {1em}
+% {}
+% \titlespacing*{\chapter}{0pt}{-10pt}{24pt}
+
+% \titleformat{\section}
+% {\Large\bfseries}
+% {\thesection}{1em}{}
+
+% \titleformat{\subsection}
+% {\large\bfseries}
+% {\thesubsection}{1em}{}
+
+%====================================================
+% Header/Footer
+%====================================================
+\setlength{\headheight}{15pt}
+\fancyhf{}
+
+\renewcommand{\chaptermark}[1]{%
+  \markboth{Chapter \thechapter: #1}{}
+}
+
+\renewcommand{\sectionmark}[1]{}
+
+\fancyhead[L]{\branch}
+\fancyhead[R]{\nouppercase{\leftmark}}
+
+\fancyfoot[L]{\academicyear}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{Natural Language Processing}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\pagestyle{fancy}
+
+\fancypagestyle{plain}{
+\fancyhf{}
+
+\fancyhead[L]{\branch}
+\fancyhead[R]{\nouppercase{\leftmark}}
+
+\fancyfoot[L]{\academicyear}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\coursename}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+}
+
+\onehalfspacing
+
+\begin{document}
+\include{front_matter/title_page}
+\include{front_matter/certificate}
+\include{front_matter/candidate's_declaration}
+\include{front_matter/Certificate_of_Plag_Check}
+\include{front_matter/acknowledgements}
+\include{front_matter/dedication}
+\include{front_matter/Abstract}
+\pagenumbering{roman}
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\justifying
+
+%================ Chapters ==================
+\include{chapters/01_Problem_Identification}
+\include{chapters/02_Literature_Review}
+\include{chapters/03_Dataset_Collection}
+\include{chapters/04_Data_Preparation}
+\include{chapters/05_NLP_Pipeline_design}
+\include{chapters/06_NLP_System Implementation}
+\include{chapters/07_Experimentation_and_Model_Development}
+\include{chapters/08_Individual_Technical_Contribution}
+\include{chapters/09_Model_Evaluation_and_Validation}
+\include{chapters/10_Error_Analysis_and_Model_Improvement}
+\include{chapters/11_Final_System_and_Results}
+\include{chapters/12_SDG_Sustainability_Safety_and_Societal_Impact}
+\include{chapters/13_Project_Management_and_Team_Contribution}
+\include{chapters/14_Conclusion_and_Future_Scope}
+
+
+%================ References =================
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+%================ Appendix ===================
+\appendix
+\include{appendices/appendix}
+
+\end{document}

@@ -1,0 +1,730 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPTER 8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Individual Technical Contribution}
+\label{chap:individual_contribution}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+This chapter describes the individual technical contributions made by
+the two team members during the development of
+\textbf{DocSaarthi: AI Legal \& Financial Document Assistant}.
+
+The project integrates Natural Language Processing techniques for
+English--Hindi translation, legal and financial document
+classification, key information extraction, and bilingual question
+answering. The implemented system also includes PDF processing,
+document preprocessing, document chunking, retrieval, source-grounded
+question answering, and page-level evidence verification.
+
+The two team members, \textbf{Padmaja Shinde} and
+\textbf{Akshata Naik}, contributed to different technical and
+development activities throughout the project. Padmaja primarily
+contributed to the core document-processing and NLP pipeline, while
+Akshata contributed to bilingual interaction, testing, validation,
+translation verification, and system-level integration.
+
+Both members participated in debugging, testing, validation, and
+technical documentation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Individual Contribution Matrix}
+
+Table~\ref{tab:individual_contribution} presents the major technical
+contributions of Padmaja Shinde and Akshata Naik.
+
+\begin{table}[H]
+\centering
+\caption{Individual Contribution Matrix}
+\label{tab:individual_contribution}
+
+\small
+\renewcommand{\arraystretch}{1.05}
+\setlength{\tabcolsep}{4pt}
+
+\begin{tabular}{|
+>{\raggedright\arraybackslash}p{3.2cm}|
+>{\raggedright\arraybackslash}p{5.1cm}|
+>{\raggedright\arraybackslash}p{5.1cm}|}
+
+\hline
+\textbf{Technical Area} &
+\textbf{Padmaja Shinde} &
+\textbf{Akshata Naik}
+\\
+\hline
+Requirement Analysis &
+Studied the project requirements and overall
+DocSaarthi workflow. &
+Studied user interaction requirements and
+bilingual document-assistance requirements.
+\\
+\hline
+PDF Processing &
+Worked on PDF text extraction and page-level
+document processing. &
+Tested PDF processing and verified extracted
+content and page references.
+\\
+\hline
+Text Preprocessing &
+Worked on text cleaning, normalization, and
+preparation of document content. &
+Validated preprocessing results and checked
+preservation of important document information.
+\\
+\hline
+Document Chunking &
+Worked on document chunking for efficient
+retrieval of relevant content. &
+Tested chunk retrieval and relevance of
+retrieved document sections.
+\\
+\hline
+Intent Dataset &
+Worked with the 400-record Hindi intent dataset
+for query routing. &
+Reviewed and tested Hindi intent examples and
+query-routing behaviour.
+\\
+\hline
+Bilingual Processing &
+Worked on English--Hindi bilingual processing
+and interaction flow. &
+Tested English, Hindi, and bilingual queries
+through the implemented system.
+\\
+\hline
+Translation &
+Integrated and tested the Sarvam Translation API. &
+Validated English--Hindi translation results and
+checked important terms and values.
+\\
+\hline
+Information Extraction &
+Worked on extraction of dates, monetary values,
+percentages, important clauses, and document
+information. &
+Verified extracted information and checked
+correctness of displayed values.
+\\
+\hline
+Question Answering &
+Worked on testing source-grounded question
+answering. &
+Validated generated answers against the
+corresponding document evidence.
+\\
+\hline
+Testing and Debugging &
+Performed document processing, retrieval, and
+integration testing. &
+Performed bilingual, translation, output, and
+system validation testing.
+\\
+\hline
+Documentation &
+Contributed to technical documentation and
+report preparation. &
+Contributed to testing records, documentation,
+and presentation preparation.
+\\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Individual Technical Tasks}
+
+The following subsections describe the technical activities performed
+by each team member during the development of DocSaarthi.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Padmaja Shinde}
+
+Padmaja Shinde contributed primarily to the core document-processing
+and NLP pipeline of the proposed system.
+
+The major technical tasks performed were:
+
+\begin{itemize}
+
+    \item Analysed the requirements and overall workflow of the
+    DocSaarthi system.
+
+    \item Worked on PDF text extraction and page-level document
+    processing.
+
+    \item Worked on text preprocessing, cleaning, and normalization.
+
+    \item Worked on document chunking to divide lengthy documents
+    into manageable sections for retrieval.
+
+    \item Worked with the 400-record Hindi intent dataset used for
+    query routing.
+
+    \item Contributed to English--Hindi bilingual processing.
+
+    \item Integrated and tested the Sarvam Translation API.
+
+    \item Worked on extraction of important document information,
+    including:
+    \begin{itemize}
+        \item Dates
+        \item Monetary values
+        \item Percentages
+        \item Important clauses
+        \item Other relevant document information
+    \end{itemize}
+
+    \item Worked on testing source-grounded question answering.
+
+    \item Participated in debugging and integration testing.
+
+    \item Contributed to technical documentation and project report
+    preparation.
+
+\end{itemize}
+
+These contributions correspond to the technical contribution
+activities identified for Padmaja in the project material.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Akshata Naik}
+
+Akshata Naik contributed primarily to bilingual interaction,
+validation, testing, and system-level verification of the DocSaarthi
+prototype.
+
+The major technical tasks performed were:
+
+\begin{itemize}
+
+    \item Studied the user requirements and interaction flow of the
+    legal and financial document assistant.
+
+    \item Participated in testing PDF upload and document processing
+    functionality.
+
+    \item Verified extracted document text and page-level references.
+
+    \item Tested preprocessing and document chunking results.
+
+    \item Tested query routing using the Hindi intent dataset.
+
+    \item Tested English, Hindi, and bilingual user queries.
+
+    \item Participated in testing the English--Hindi bilingual
+    processing workflow.
+
+    \item Tested the Sarvam Translation API and verified the quality
+    of translated output.
+
+    \item Checked whether important information such as dates,
+    monetary values, percentages, names, and document identifiers
+    remained correctly represented after translation.
+
+    \item Tested document classification results for Legal and
+    Financial documents.
+
+    \item Tested retrieval of relevant document sections for user
+    queries.
+
+    \item Validated source-grounded question-answering responses
+    against the uploaded document.
+
+    \item Verified page-level evidence associated with generated
+    answers.
+
+    \item Tested unsupported questions and verified the safe
+    ``Not Found'' response.
+
+    \item Assisted in identifying and reporting implementation
+    issues during system testing.
+
+    \item Participated in debugging and integration testing.
+
+    \item Contributed to technical documentation and presentation
+    preparation.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Testing and Debugging Contribution}
+
+Testing and debugging were carried out collaboratively by both team
+members to ensure that the implemented system performed correctly
+across document processing, translation, retrieval, and
+question-answering tasks.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Padmaja Shinde}
+
+Padmaja contributed to testing and debugging of the core NLP and
+document-processing components.
+
+The testing activities included:
+
+\begin{itemize}
+
+    \item PDF text extraction testing.
+
+    \item Text preprocessing and normalization testing.
+
+    \item Document chunking testing.
+
+    \item Document classification testing.
+
+    \item Information extraction testing.
+
+    \item Retrieval testing.
+
+    \item Translation API integration testing.
+
+    \item Source-grounded question-answering testing.
+
+    \item Backend integration testing.
+
+\end{itemize}
+
+Padmaja also participated in identifying processing errors and
+verifying corrections after debugging.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Akshata Naik}
+
+Akshata contributed mainly to system-level and user-oriented testing.
+
+The testing activities included:
+
+\begin{itemize}
+
+    \item Testing English and Hindi queries.
+
+    \item Testing bilingual interaction.
+
+    \item Testing query routing and intent handling.
+
+    \item Testing translation output.
+
+    \item Verifying important values after translation.
+
+    \item Testing retrieval relevance.
+
+    \item Checking source-grounded answers against document content.
+
+    \item Verifying page-level evidence.
+
+    \item Testing unsupported questions.
+
+    \item Identifying unexpected outputs during system execution.
+
+\end{itemize}
+
+These testing activities support the project requirement that the
+system provide bilingual responses and evidence that can be verified
+against the original document.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Joint Testing and Debugging}
+
+Both members jointly participated in end-to-end system testing.
+
+The joint testing process included:
+
+\begin{enumerate}
+
+    \item Uploading legal and financial PDF documents.
+
+    \item Checking successful PDF text extraction.
+
+    \item Verifying preprocessing and chunking.
+
+    \item Testing Legal and Financial classification.
+
+    \item Checking extraction of dates, monetary values, percentages,
+    and important clauses.
+
+    \item Testing English and Hindi queries.
+
+    \item Testing translation.
+
+    \item Testing retrieval of relevant document chunks.
+
+    \item Verifying source-grounded answers.
+
+    \item Checking page-level evidence.
+
+    \item Testing unsupported questions.
+
+    \item Re-testing the system after debugging.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problems Encountered and Solutions}
+
+Several technical challenges were encountered during the
+implementation of DocSaarthi. The major problems and the
+corresponding solutions are presented in Table~\ref{tab:problems}.
+
+\begin{table}[H]
+\centering
+\caption{Problems Encountered and Implemented Solutions}
+\label{tab:problems}
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+
+\begin{tabular}{|
+>{\raggedright\arraybackslash}p{4.2cm}|
+>{\raggedright\arraybackslash}p{8.8cm}|}
+
+\hline
+\textbf{Problem} &
+\textbf{Solution}
+\\
+\hline
+Long PDF documents &
+Documents were divided into smaller chunks to make retrieval and
+processing more manageable.
+\\
+\hline
+PDF text formatting issues &
+Text cleaning, normalization, and line-break handling were applied
+during preprocessing.
+\\
+\hline
+Hindi Unicode handling &
+Unicode normalization was used while preserving Devanagari
+characters.
+\\
+\hline
+Bilingual interaction &
+English--Hindi translation and bilingual retrieval were incorporated
+into the processing workflow.
+\\
+\hline
+Long translation requests &
+Large text inputs were divided into smaller translation chunks.
+\\
+\hline
+Important numerical information &
+Dates, monetary values, percentages, and identifiers were preserved
+during processing.
+\\
+\hline
+Irrelevant retrieval &
+Normalized lexical and token-based matching was used to retrieve
+relevant document sections.
+\\
+\hline
+Unsupported questions &
+The system provides a safe ``Not Found'' response when sufficient
+evidence is unavailable.
+\\
+\hline
+Hallucination risk &
+Question answering is grounded in retrieved document evidence.
+\\
+\hline
+External API dependency &
+Error handling and fallback mechanisms were incorporated for
+external services.
+\\
+\hline
+Document verification &
+Page-level references were retained so that users could verify the
+generated information.
+\\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Skill Acquisition and Technology Adoption}
+
+The development of DocSaarthi provided both team members with
+practical experience in Natural Language Processing, document
+intelligence, bilingual processing, API integration, testing, and
+debugging.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Padmaja Shinde}
+
+The major technical skills acquired and strengthened by Padmaja
+include:
+
+\begin{itemize}
+
+    \item PDF document processing.
+
+    \item Page-level text extraction.
+
+    \item Text preprocessing and normalization.
+
+    \item Document chunking.
+
+    \item Lexical document retrieval.
+
+    \item Structured information extraction.
+
+    \item Bilingual English--Hindi processing.
+
+    \item Translation API integration.
+
+    \item Source-grounded question answering.
+
+    \item Backend integration and debugging.
+
+    \item Technical documentation and report preparation.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Akshata Naik}
+
+The major technical skills acquired and strengthened by Akshata
+include:
+
+\begin{itemize}
+
+    \item Understanding of NLP-based document processing.
+
+    \item Working with a Hindi intent dataset.
+
+    \item Bilingual English--Hindi interaction.
+
+    \item Translation API testing.
+
+    \item Document classification validation.
+
+    \item Retrieval and question-answering validation.
+
+    \item Verification of extracted legal and financial information.
+
+    \item Functional testing and debugging.
+
+    \item System integration testing.
+
+    \item Technical documentation and presentation preparation.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Technology Adoption}
+
+The major technologies used during the implementation of DocSaarthi
+are summarized below.
+
+\begin{table}[H]
+\centering
+\caption{Technology Adoption}
+\label{tab:technology_adoption}
+
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Technology} & \textbf{Application}
+\\
+\hline
+HTML, CSS and JavaScript &
+Frontend interface and user interaction.
+\\
+\hline
+Node.js &
+Backend runtime and application processing.
+\\
+\hline
+pdfjs-dist &
+PDF text extraction and page-level processing.
+\\
+\hline
+400-record Hindi Dataset &
+Intent identification and query routing.
+\\
+\hline
+Sarvam Translation API &
+English--Hindi and Hindi--English translation.
+\\
+\hline
+Lexical / Token Matching &
+Document retrieval and query matching.
+\\
+\hline
+OpenAI API &
+Optional AI-assisted answer generation.
+\\
+\hline
+Git / GitHub &
+Version control and project development.
+\\
+\hline
+\end{tabular}
+\end{table}
+
+The project material identifies Node.js, HTML/CSS/JavaScript,
+pdfjs-dist, the 400 Hindi intent records, Sarvam Translation API,
+lexical/token-based retrieval, and optional OpenAI integration as the
+main implementation technologies.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Individual Contribution Evidence}
+
+The individual contribution of both members can be demonstrated
+through the technical implementation, testing activities, system
+outputs, and project documentation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evidence for Padmaja Shinde}
+
+The following activities provide evidence of Padmaja's technical
+contribution:
+
+\begin{itemize}
+
+    \item Requirement analysis and understanding of the DocSaarthi
+    workflow.
+
+    \item PDF text extraction and page-level processing.
+
+    \item Text preprocessing and normalization.
+
+    \item Document chunking.
+
+    \item Integration of the 400-record Hindi intent dataset.
+
+    \item English--Hindi bilingual processing.
+
+    \item Sarvam Translation API integration and testing.
+
+    \item Extraction of dates, monetary values, percentages, and
+    important clauses.
+
+    \item Testing of source-grounded question answering.
+
+    \item Debugging and integration testing.
+
+    \item Technical documentation and report preparation.
+
+\end{itemize}
+
+These activities are explicitly listed in the project's individual
+contribution material.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evidence for Akshata Naik}
+
+The following activities provide evidence of Akshata's contribution
+to the development and validation of the system:
+
+\begin{itemize}
+
+    \item Testing of document upload and PDF processing.
+
+    \item Validation of extracted document content.
+
+    \item Testing of preprocessing and document chunking.
+
+    \item Testing of the Hindi intent dataset and query routing.
+
+    \item Testing English, Hindi, and bilingual queries.
+
+    \item Translation API testing and output verification.
+
+    \item Validation of extracted dates, monetary values, percentages,
+    and important clauses.
+
+    \item Testing of Legal and Financial document classification.
+
+    \item Retrieval relevance testing.
+
+    \item Source-grounded question-answering validation.
+
+    \item Page-level evidence verification.
+
+    \item Unsupported-question testing.
+
+    \item Debugging and integration testing.
+
+    \item Technical documentation and presentation support.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Project Artifacts as Evidence}
+
+The following project artifacts can be used to demonstrate the
+technical contributions of both members:
+
+\begin{itemize}
+
+    \item Source-code files.
+
+    \item Git/GitHub repository and commit history.
+
+    \item Hindi intent dataset.
+
+    \item PDF processing implementation.
+
+    \item Translation API integration.
+
+    \item Testing outputs.
+
+    \item Screenshots of the implemented system.
+
+    \item Classification and information extraction results.
+
+    \item Question-answering results.
+
+    \item Technical documentation.
+
+    \item Project presentation and demonstration.
+
+\end{itemize}
+
+The project presentation also records the team's implementation
+technologies, including Node.js, pdfjs-dist, the 400-record Hindi
+dataset, Sarvam Translation API, lexical/token-based retrieval, and
+optional OpenAI integration.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Chapter Summary}
+
+This chapter presented the individual technical contributions of
+\textbf{Padmaja Shinde} and \textbf{Akshata Naik} in the development
+of DocSaarthi.
+
+Padmaja Shinde primarily contributed to the core document-processing
+and NLP pipeline, including PDF text extraction, preprocessing,
+document chunking, intent dataset integration, bilingual processing,
+translation integration, information extraction, source-grounded
+question answering, debugging, and technical documentation.
+
+Akshata Naik primarily contributed to system validation, bilingual
+interaction testing, translation verification, intent and query
+routing validation, document classification testing, retrieval
+verification, question-answering validation, debugging, and
+documentation.
+
+Both members contributed to the integration, testing, debugging, and
+validation of the complete DocSaarthi system.
+
+The contribution of Padmaja is directly documented in the project
+material, including requirement analysis, PDF processing,
+preprocessing, document chunking, intent dataset integration,
+bilingual processing, Sarvam integration, information extraction,
+question-answering testing, debugging, and documentation.
+
+
+The combined contributions supported the implementation and
+validation of a bilingual, source-grounded legal and financial
+document assistant. The project architecture integrates document
+processing, classification, information extraction, bilingual
+retrieval, translation, question answering, and page-level evidence
+into a single workflow.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

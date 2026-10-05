@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPTER 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Problem Identification}
+
+\section{Introduction}
+
+This chapter introduces the domain and context of the proposed project, \textit{DocSaarthi: AI Legal \& Financial Document Assistant}, an integrated Natural Language Processing (NLP) system for simplifying the understanding of legal and financial documents for common users. The chapter presents the background of the problem, defines the problem statement, discusses the importance of the problem, states the project objectives, defines the scope of the work, and lists the assumptions and constraints under which the project is carried out.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Background}
+
+Legal and financial documents such as service agreements, loan contracts, insurance policies, tax notices, and court proceedings form an integral part of everyday personal and organizational life. Traditionally, such documents are drafted using formal, domain-specific vocabulary, verbose sentence constructions, and clause-based structuring that make them difficult for a layperson to interpret without professional legal or financial assistance.
+
+At present, an individual who receives such a document typically depends on a lawyer, chartered accountant, or financial advisor to explain its content, or spends considerable time manually reading and cross-referencing unfamiliar terms. This manual process is time-consuming, costly, and inaccessible to a large section of the population, particularly in a linguistically diverse country such as India, where a significant number of users are more comfortable reading regional languages such as Hindi rather than English.
+
+Recent advances in NLP, particularly transformer-based language models, multilingual machine translation systems such as IndicTrans2, and Indian-language-aware classification models such as IndicBERT and MuRIL, have made it possible to build systems that can translate, classify, and answer questions over domain-specific text with reasonable accuracy. These developments motivate the design of an integrated assistant that brings together multiple NLP capabilities to address the document comprehension problem in a single pipeline.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Domain Overview}
+
+The proposed project operates at the intersection of two application domains: \textbf{Legal} and \textbf{Finance}, unified under the broader theme of \textbf{Indian Language Technologies}, since a core requirement of the system is English-to-Hindi translation and bilingual response generation.
+
+\begin{itemize}
+    \item \textbf{Domain characteristics:} Legal documents (service agreements, confidentiality clauses, court proceedings) are characterised by formal clause-based structuring, obligation-bearing language, and fixed legal terminology. Financial documents (loan agreements, payment notices, insurance policies, tax statements) are characterised by numerical data such as amounts, dates, and durations embedded within descriptive sentences.
+    \item \textbf{Existing workflow:} A user currently reads the document manually, or consults a domain expert, to identify the document type and extract relevant obligations, dates, and monetary values.
+    \item \textbf{Current technologies:} Existing tools largely address translation, classification, or question answering independently, using general-purpose (non-domain-adapted) NLP models with limited support for Hindi.
+    \item \textbf{Role of text data:} The text of the document is the sole source of information used by the system; no external knowledge base is consulted, and all classification and question-answering decisions are grounded strictly in the input document.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Need for the Proposed NLP Solution}
+
+The need for an NLP-based solution to this problem arises from the following considerations:
+
+\begin{itemize}
+    \item A large volume of legal and financial text is generated and exchanged daily, ranging from employment contracts to loan documents, which cannot be manually reviewed at scale.
+    \item Manual reading and interpretation of clause-heavy documents is time-consuming and error-prone for non-expert users.
+    \item There is a clear need for automation that can classify a document, extract its salient information, and answer natural-language queries about it without manual intervention.
+    \item A substantial proportion of Indian users are more comfortable understanding legal and financial content in Hindi than in English, creating a genuine multilingual requirement.
+    \item Intelligent information extraction (identifying parties, amounts, durations, and obligations) reduces the cognitive load of reading a document in full.
+    \item Automation enables faster processing and improves the overall user experience compared to consulting a human expert for routine document queries.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problem Statement}
+
+Legal and financial documents are often lengthy and complex, containing domain-specific clauses, financial terminology, and formal legal phrasing that make them difficult for common users to understand without expert assistance. Individuals who receive such documents -- for example, employees signing service agreements, borrowers reviewing loan contracts, or policyholders reading insurance terms -- are directly affected, since misunderstanding a document's obligations can lead to financial loss or legal disadvantage.
+
+Existing NLP-based document-assistance tools typically address only a single task, such as machine translation, document classification, or question answering, in isolation. A user therefore has to rely on multiple independent tools to fully understand one document, and Hindi-language support across such tools remains limited. This project proposes an integrated NLP pipeline that accepts an English legal or financial document, translates it into Hindi, classifies it into the Legal or Financial category, extracts key information, and answers user questions in both English and Hindi using only the content of the uploaded document.
+
+\textbf{Example Format}
+
+\begin{quote}
+\textit{``Given a lengthy English legal or financial document, how can a system automatically translate, classify, extract key information from, and answer natural-language questions about that document, in both English and Hindi, without requiring the user to consult multiple separate tools or a domain expert?''}
+\end{quote}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Importance of the Problem}
+
+Solving this problem is important for the following reasons:
+
+\begin{itemize}
+    \item \textbf{Academic importance:} The problem combines several core NLP sub-tasks -- machine translation, text classification, named entity/key-information extraction, and question answering -- within a single applied pipeline, making it a suitable case study for multi-task NLP system design.
+    \item \textbf{Industrial relevance:} Legal-tech and fintech platforms are increasingly adopting AI-assisted document review, and an integrated bilingual assistant is directly relevant to such industry use cases.
+    \item \textbf{Social impact:} Simplifying access to legal and financial understanding benefits users who lack access to legal or financial expertise, particularly first-time borrowers, small business owners, and salaried employees.
+    \item \textbf{Economic impact:} Faster, low-cost document comprehension can reduce dependence on paid consultation for routine document queries.
+    \item \textbf{Support for Indian languages:} The system directly supports Hindi, aligning with the broader national emphasis on multilingual digital access, including initiatives such as Digital India and Bhashini.
+    \item \textbf{Sustainable Development Goals (SDGs):} The project contributes to SDG 10 (Reduced Inequalities) by improving equitable access to legal and financial information, and to SDG 9 (Industry, Innovation and Infrastructure) through the application of AI-based automation.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Project Objectives}
+
+\begin{enumerate}
+    \item To study the problem of legal and financial document understanding as a multi-task NLP problem.
+    \item To collect and analyse a suitable Hindi-language legal and financial text dataset for classification and question-answering experiments.
+    \item To perform text preprocessing, including cleaning, tokenization, stopword processing, and normalization, appropriate to the Hindi language.
+    \item To design an NLP pipeline that integrates English-to-Hindi translation, document classification, key information extraction, and question answering.
+    \item To select suitable feature representation techniques (e.g. transformer-based embeddings) for Hindi legal and financial text.
+    \item To identify appropriate models for document classification (Legal / Financial) and for context-based question answering.
+    \item To define suitable evaluation metrics for each pipeline stage (translation, classification, extraction, and question answering).
+    \item To design an interactive interface concept (Streamlit-based) through which a user can upload a document, view its translation and classification, and ask questions in natural language.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Scope of the Project}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{In Scope}
+
+\begin{itemize}
+    \item Collection and analysis of a labelled Legal/Financial Hindi text dataset (400 records, 8 intent sub-classes).
+    \item Data preprocessing and exploratory data analysis of the collected dataset.
+    \item Design of an NLP pipeline covering translation, document classification, key information extraction, and question answering.
+    \item Selection and justification of feature representation and model choices for document classification.
+    \item Design of an evaluation strategy for each pipeline component.
+    \item Conceptual design of a Streamlit-based bilingual (English/Hindi) user interface.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Out of Scope}
+
+\begin{itemize}
+    \item Full-scale production deployment of the system.
+    \item Cloud hosting and continuous integration/deployment pipelines.
+    \item Real-time, large-volume document processing.
+    \item Legal validity certification or provision of professional legal/financial advice.
+    \item Support for languages other than English and Hindi.
+    \item Continuous or online model retraining beyond the scope of this micro project.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Assumptions and Constraints}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Assumptions}
+
+\begin{itemize}
+    \item The collected dataset labels (Document\_Type and Intent) are correctly annotated.
+    \item Required NLP libraries and pre-trained multilingual/Indic models are available and accessible.
+    \item Sufficient computing resources are available for experimentation with transformer-based models.
+    \item Users interact with the system in either English or Hindi and provide readable, digitally typed text (not scanned images).
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Limited dataset size (400 records), which constrains the training of deep models from scratch and motivates the use of pre-trained models.
+    \item Limited computational resources available for a semester-long micro project.
+    \item Domain-specific legal and financial vocabulary that may not be fully covered by general-purpose pre-trained language models.
+    \item Language-specific preprocessing challenges associated with Hindi, such as Unicode normalization and the absence of universally standard stopword lists.
+    \item Time limitations imposed by the micro-project schedule.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Chapter Summary}
+
+This chapter introduced the selected NLP problem of legal and financial document understanding, discussed its background and significance, defined the problem statement, outlined the project objectives and scope, and presented the assumptions and constraints of the proposed \textit{DocSaarthi} system. The next chapter reviews the existing research literature on machine translation, document classification, and question answering, compares current approaches, identifies research gaps, and motivates the proposed solution.

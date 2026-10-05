@@ -1,3 +1,67 @@
-import{config,DISCLAIMER}from'./config.js';import{store}from'./store.js';import{validateUpload,extractPdf,newDocumentId}from'./services/document-service.js';import{detectLanguage}from'./services/language-service.js';import{classifyDocument}from'./services/classification-service.js';import{analyzeDocument}from'./services/intelligence-service.js';import{chunkPages,retrieve}from'./services/rag-service.js';import{answerQuestion}from'./services/ai-service.js';import{translateText}from'./services/translation-service.js';import{loadIntentModel,detectIntent}from'./services/intent-service.js';
-const intents=loadIntentModel(config.datasetPath),json=(r,s,b)=>{r.writeHead(s,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});r.end(JSON.stringify(b))},read=req=>new Promise((ok,no)=>{let raw='';req.on('data',c=>{raw+=c;if(raw.length>config.maxFileBytes*1.5)no(Error('Request is too large.'))});req.on('end',()=>{try{ok(JSON.parse(raw||'{}'))}catch{no(Error('Invalid request.'))}});req.on('error',no)}),publicDoc=d=>{const{bytes,chunks,text,pages,...safe}=d;return{...safe,pages:pages.map(p=>({page_number:p.page_number,text:p.text})),chunk_count:chunks.length,disclaimer:DISCLAIMER}};
-export async function handleApi(req,res,url){try{if(req.method==='GET'&&url.pathname==='/api/health')return json(res,200,{ok:true,dataset:{sample_count:intents.sample_count,intents:intents.intents},disclaimer:DISCLAIMER});if(req.method==='GET'&&url.pathname==='/api/documents')return json(res,200,{documents:store.list()});if(req.method==='POST'&&url.pathname==='/api/documents'){const x=await read(req),bytes=Buffer.from(x.data||'','base64');validateUpload({name:x.name,type:x.type,bytes},config.maxFileBytes);const ext=await extractPdf(bytes),id=newDocumentId(),language=detectLanguage(ext.text),c=classifyDocument(ext.text),d={id,filename:x.name,bytes,created_at:new Date().toISOString(),status:'READY',document_language:language,document_type:c.document_type,classification_confidence:c.confidence,classification_explanation:c.explanation,...ext};d.chunks=chunkPages(d);Object.assign(d,await analyzeDocument(d));store.set(d);return json(res,201,{document:publicDoc(d)})}const m=url.pathname.match(/^\/api\/documents\/([^/]+)(?:\/(chat|translate|search))?$/);if(!m)return false;const d=store.get(m[1]);if(!d)return json(res,404,{error:'Document not found.'});if(req.method==='GET'&&!m[2])return json(res,200,{document:publicDoc(d)});if(req.method==='POST'&&m[2]==='chat'){const x=await read(req);if(!x.question?.trim())throw Error('Enter a question.');const evidence=retrieve(x.question,d.chunks);return json(res,200,await answerQuestion(x.question,evidence,detectIntent(x.question,intents),x.response_language,d))}if(req.method==='POST'&&m[2]==='search'){const x=await read(req);return json(res,200,{results:retrieve(x.query||'',d.chunks,10).map(({token_set,...v})=>v)})}if(req.method==='POST'&&m[2]==='translate'){const x=await read(req),target=x.target==='hi'?'hi':'en',pages=[];for(const p of d.pages)pages.push({...p,...await translateText(p.text,target)});return json(res,200,{translation:{id:`tr_${d.id}_${target}`,document_id:d.id,target_language:target,source_language:d.document_language,original_unchanged:true,pages}})}return json(res,405,{error:'Method not allowed.'})}catch(e){const status=e.status||(/limit|large/.test(e.message)?413:400);return json(res,status,{error:e.message,code:e.code||'REQUEST_FAILED',provider:e.provider||undefined,status})}}
+import { config, DISCLAIMER } from './config.js';
+import { store } from './store.js';
+import { validateUpload, extractPdf, newDocumentId } from './services/document-service.js';
+import { detectLanguage } from './services/language-service.js';
+import { classifyDocument } from './services/classification-service.js';
+import { analyzeDocument } from './services/intelligence-service.js';
+import { chunkPages, retrieve } from './services/rag-service.js';
+import { answerQuestion } from './services/ai-service.js';
+import { translateText, translationDatasetStatus } from './services/translation-service.js';
+import { loadIntentModel, detectIntent, conversationalIntent, retrievalQuery } from './services/intent-service.js';
+
+const intents = loadIntentModel(config.datasetPath);
+const json = (response, status, body) => { response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }); response.end(JSON.stringify(body)); };
+const read = request => new Promise((resolve, reject) => { let raw = ''; request.on('data', chunk => { raw += chunk; if (raw.length > config.maxFileBytes * 1.5) reject(Error('Request is too large.')); }); request.on('end', () => { try { resolve(JSON.parse(raw || '{}')); } catch { reject(Error('Invalid request.')); } }); request.on('error', reject); });
+const publicDoc = document => { const { bytes, chunks, text, pages, ...safe } = document; return { ...safe, pages: pages.map(page => ({ page_number: page.page_number, text: page.text })), chunk_count: chunks.length, disclaimer: DISCLAIMER }; };
+function reviveDocument(snapshot,id){
+  if(!snapshot||snapshot.id!==id||!Array.isArray(snapshot.pages)||!snapshot.pages.length)return null;
+  const pages=snapshot.pages.map((page,index)=>({page_number:Number(page.page_number)||index+1,text:String(page.text||'').slice(0,config.maxFileBytes)}));
+  const text=pages.map(page=>page.text).join('\n\n');
+  if(!text.trim()||text.length>config.maxFileBytes)return null;
+  const document={...snapshot,id,pages,text,page_count:pages.length};
+  document.chunks=chunkPages(document);store.set(document);return document;
+}
+function conversationAnswer(kind, requested, question) {
+  const answer = kind === 'greeting'
+    ? { english: 'Hello! Ask me a question about the uploaded document.', hindi: 'नमस्ते! अपलोड किए गए दस्तावेज़ के बारे में कोई प्रश्न पूछिए।' }
+    : { english: 'You are welcome. Ask me anything about the uploaded document.', hindi: 'आपका स्वागत है। अपलोड किए गए दस्तावेज़ के बारे में कोई प्रश्न पूछिए।' };
+  return { question_language: detectLanguage(question), response_language: requested, answer_order: requested === 'en' ? ['en'] : requested === 'hi' ? ['hi'] : ['hi', 'en'], answer, intent: { intent: 'Conversation', score: 1 }, sources: [], grounded: false, conversational: true, ai_status: null };
+}
+
+export async function handleApi(request, response, url) {
+  try {
+    if (request.method === 'GET' && url.pathname === '/api/health') return json(response, 200, { ok: true, translation: translationDatasetStatus(), dataset: { sample_count: intents.sample_count, intents: intents.intents }, disclaimer: DISCLAIMER });
+    if (request.method === 'GET' && url.pathname === '/api/documents') return json(response, 200, { documents: store.list() });
+    if (request.method === 'POST' && url.pathname === '/api/documents') {
+      const input = await read(request), bytes = Buffer.from(input.data || '', 'base64');
+      validateUpload({ name: input.name, type: input.type, bytes }, config.maxFileBytes);
+      const extracted = await extractPdf(bytes), id = newDocumentId(), language = detectLanguage(extracted.text), classification = classifyDocument(extracted.text);
+      const document = { id, filename: input.name, bytes, created_at: new Date().toISOString(), status: 'READY', document_language: language, document_type: classification.document_type, classification_confidence: classification.confidence, classification_explanation: classification.explanation, ...extracted };
+      document.chunks = chunkPages(document); Object.assign(document, await analyzeDocument(document)); store.set(document);
+      return json(response, 201, { document: publicDoc(document) });
+    }
+    const match = url.pathname.match(/^\/api\/documents\/([^/]+)(?:\/(chat|translate|search))?$/);
+    if (!match) return false;
+    const input=request.method==='POST'&&match[2]?await read(request):null;
+    const document = store.get(match[1])||reviveDocument(input?.document,match[1]); if (!document) return json(response, 404, { error: 'Document not found.' });
+    if (request.method === 'GET' && !match[2]) return json(response, 200, { document: publicDoc(document) });
+    if (request.method === 'POST' && match[2] === 'chat') {
+      if (!input.question?.trim()) throw Error('Enter a question.');
+      const requested = ['en', 'hi', 'both'].includes(input.response_language) ? input.response_language : 'both', conversation = conversationalIntent(input.question);
+      if (conversation) return json(response, 200, conversationAnswer(conversation, requested, input.question));
+      const intent = detectIntent(input.question, intents), evidence = retrieve(retrievalQuery(input.question, intent), document.chunks);
+      return json(response, 200, await answerQuestion(input.question, evidence, intent, requested, document));
+    }
+    if (request.method === 'POST' && match[2] === 'search') { return json(response, 200, { results: retrieve(input.query || '', document.chunks, 10).map(({ token_set, ...value }) => value) }); }
+    if (request.method === 'POST' && match[2] === 'translate') {
+      const target = input.target === 'hi' ? 'hi' : 'en';
+      if (input.scope === 'summary') { const translated=await translateText(document.summary.english,target); if (target === 'hi') { document.summary.hindi = translated.text; document.translation_error = null; } return json(response, 200, { translation: { document_id: document.id, target_language: target, scope: 'summary', text: translated.text, provider: translated.provider, quality: translated.quality, original_unchanged: true } }); }
+      const pages=[];for(const page of document.pages){const translated=await translateText(page.text,target);pages.push({...page,text:translated.text,provider:translated.provider,quality:translated.quality})}
+      return json(response, 200, { translation: { id: `tr_${document.id}_${target}`, document_id: document.id, target_language: target, source_language: document.document_language, provider: 'sarvam', original_unchanged: true, pages } });
+    }
+    return json(response, 405, { error: 'Method not allowed.' });
+  } catch (error) {
+    const status = error.status || (/limit|large/.test(error.message) ? 413 : 400);
+    return json(response, status, { error: error.message, code: error.code || 'REQUEST_FAILED', provider: error.provider || undefined, status });
+  }
+}

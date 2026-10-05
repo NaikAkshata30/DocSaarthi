@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+
+\bibitem{gala2023indictrans2}
+J.~Gala, P.~A. Chitale, A.~K. Raghavan, V.~Gumma, S.~Doddapaneni, A.~K. M,
+  J.~A. Nawale, A.~Sujatha, R.~Puduppully, V.~Raghavan, P.~Kumar, M.~M. Khapra,
+  R.~Dabre, and A.~Kunchukuttan, ``Indictrans2: Towards high-quality and
+  accessible machine translation models for all 22 scheduled indian
+  languages,'' {\em Transactions on Machine Learning Research}, 2023.
+
+\bibitem{khanuja2021muril}
+S.~Khanuja, D.~Bansal, S.~Mehtani, S.~Khosla, A.~Dey, B.~Gopalan, D.~K. Margam,
+  P.~Aggarwal, R.~T. Nagipogu, S.~Dave, S.~Gupta, S.~C.~B. Gali,
+  V.~Subramanian, and P.~Talukdar, ``Muril: Multilingual representations for
+  indian languages,'' 2021.
+
+\bibitem{malik2021ildc}
+V.~Malik, R.~Sanjay, S.~K. Nigam, K.~Ghosh, S.~K. Guha, A.~Bhattacharya, and
+  A.~Modi, ``Ildc for cjpe: Indian legal documents corpus for court judgment
+  prediction and explanation,'' in {\em Proceedings of the 59th Annual Meeting
+  of the Association for Computational Linguistics and the 11th International
+  Joint Conference on Natural Language Processing (Volume 1: Long Papers)},
+  pp.~4046--4062, Association for Computational Linguistics, 2021.
+
+\bibitem{araci2019finbert}
+D.~T. Araci, ``Finbert: Financial sentiment analysis with pre-trained language
+  models,'' 2019.
+
+\bibitem{kalamkar2022ner}
+P.~Kalamkar, A.~Agarwal, A.~Tiwari, S.~Gupta, S.~Karn, and V.~Raghavan, ``Named
+  entity recognition in indian court judgments,'' in {\em Proceedings of the
+  Natural Legal Language Processing Workshop 2022}, (Abu Dhabi, United Arab
+  Emirates (Hybrid)), pp.~184--193, Association for Computational Linguistics,
+  2022.
+
+\bibitem{devlin2019bert}
+J.~Devlin, M.-W. Chang, K.~Lee, and K.~Toutanova, ``Bert: Pre-training of deep
+  bidirectional transformers for language understanding,'' in {\em Proceedings
+  of the 2019 Conference of the North American Chapter of the Association for
+  Computational Linguistics: Human Language Technologies (NAACL-HLT)},
+  pp.~4171--4186, 2019.
+
+\end{thebibliography}

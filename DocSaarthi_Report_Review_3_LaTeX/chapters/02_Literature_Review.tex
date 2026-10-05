@@ -1,0 +1,850 @@
+\chapter{Literature Review}
+\markboth{Chapter \thechapter: Literature Review}{}
+
+\section{Introduction}
+
+A literature review provides a comprehensive understanding of existing research related to the selected NLP problem. It helps identify the current state of the art, datasets, feature engineering techniques, models, evaluation metrics, and research gaps. Since \textit{DocSaarthi} integrates four distinct NLP sub-tasks -- English-Hindi machine translation, Legal/Financial document classification, key information extraction, and question answering -- the papers reviewed in this chapter are chosen to cover each of these sub-tasks individually, along with the foundational transformer architecture that underlies most modern NLP systems.
+
+\newpage
+\section{Research Paper Review}
+\subsection{IndicTrans2: Towards High-Quality and Accessible Machine Translation Models for all 22 Scheduled Indian Languages}
+
+\def\PaperTitle{IndicTrans2}
+\def\PaperLabel{tab:paper1}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of IndicTrans2}
+\label{tab:paper1}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+J. Gala, P. A. Chitale, A. K. Raghavan, V. Gumma, S. Doddapaneni, A. Kumar M, J. A. Nawale, A. Sujatha, R. Puduppully, V. Raghavan, P. Kumar, M. M. Khapra, R. Dabre, and A. Kunchukuttan, ``IndicTrans2: Towards High-Quality and Accessible Machine Translation Models for all 22 Scheduled Indian Languages,'' \textit{Transactions on Machine Learning Research}, 2023.
+\\ \hline
+
+Title &
+IndicTrans2: Towards High-Quality and Accessible Machine Translation Models for all 22 Scheduled Indian Languages
+\\ \hline
+
+Authors &
+Jay Gala, Pranjal A. Chitale, A K Raghavan, Varun Gumma, et al. (AI4Bharat)
+\\ \hline
+
+Year of Publication &
+2023
+\\ \hline
+
+Publisher / Conference / Journal &
+Transactions on Machine Learning Research (TMLR)
+\\ \hline
+
+Objective &
+To build a single high-quality, open-source machine translation model supporting translation between English and all 22 scheduled Indian languages.
+\\ \hline
+
+Problem Addressed &
+Absence of large parallel training data, robust benchmarks, and open multilingual translation models covering all Indian languages.
+\\ \hline
+
+NLP Task &
+Neural Machine Translation (English $\leftrightarrow$ Indian languages, including Hindi)
+\\ \hline
+
+Language(s) &
+English and 22 scheduled Indian languages (including Hindi)
+\\ \hline
+
+Dataset &
+Bharat Parallel Corpus Collection (BPCC) -- 230 million bitext pairs; IN22 n-way parallel benchmark
+\\ \hline
+
+Annotation Method &
+Automatic mining supplemented with manually translated sentence pairs (644K sentences)
+\\ \hline
+
+Data Preprocessing &
+Script unification, sentence-level alignment, deduplication, and denoising of mined parallel corpora
+\\ \hline
+
+Feature Representation &
+Subword tokenization with a shared multilingual vocabulary across scripts
+\\ \hline
+
+Model / Algorithm &
+Transformer-based encoder-decoder Neural Machine Translation model (IndicTrans2, and a distilled variant IndicTrans2-Dist)
+\\ \hline
+
+Evaluation Metrics &
+BLEU, chrF++, COMET, and human evaluation
+\\ \hline
+
+Key Findings &
+IndicTrans2 is the first open-source model to support all 22 scheduled Indian languages and performs at par with, or better than, existing commercial and open translation systems.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item First single model covering all 22 scheduled Indian languages, including Hindi
+\item Open-source with permissive licensing, enabling direct reuse
+\item Distilled variant (IndicTrans2-Dist) reduces deployment cost while retaining performance
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Performance still varies across low-resource languages
+\item Domain-specific terminology (e.g., dense legal or financial clauses) is not explicitly targeted during training
+\item Requires significant compute for full-scale fine-tuning
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+Domain-adaptive fine-tuning on legal and financial parallel corpora could further improve translation fidelity for clause-heavy sentences.
+\\ \hline
+
+\end{longtable}
+
+\subsection{MuRIL: Multilingual Representations for Indian Languages}
+
+\def\PaperTitle{MuRIL}
+\def\PaperLabel{tab:paper2}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of MuRIL}
+\label{tab:paper2}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+S. Khanuja, D. Bansal, S. Mehtani, S. Khosla, A. Dey, B. Gopalan, D. K. Margam, P. Aggarwal, R. T. Nagipogu, S. Dave, S. Gupta, S. C. B. Gali, V. Subramanian, and P. Talukdar, ``MuRIL: Multilingual Representations for Indian Languages,'' \textit{arXiv preprint arXiv:2103.10730}, 2021.
+\\ \hline
+
+Title &
+MuRIL: Multilingual Representations for Indian Languages
+\\ \hline
+
+Authors &
+Simran Khanuja, Diksha Bansal, Sarvesh Mehtani, et al. (Google Research India)
+\\ \hline
+
+Year of Publication &
+2021
+\\ \hline
+
+Publisher / Conference / Journal &
+arXiv preprint (Google Research)
+\\ \hline
+
+Objective &
+To build a BERT-based multilingual language model specifically optimized for Indian languages, including code-mixed and transliterated text.
+\\ \hline
+
+Problem Addressed &
+General-purpose multilingual models such as mBERT under-represent Indian languages due to limited vocabulary and training data allocated to them.
+\\ \hline
+
+NLP Task &
+Language Representation Learning, usable for downstream classification, NER, and QA
+\\ \hline
+
+Language(s) &
+17 Indian languages and their transliterated (Latin-script) counterparts, including Hindi
+\\ \hline
+
+Dataset &
+Wikipedia, Common Crawl, PMINDIA, and Dakshina corpora
+\\ \hline
+
+Annotation Method &
+Self-supervised (no manual annotation required for pre-training)
+\\ \hline
+
+Data Preprocessing &
+Translation and transliteration pair augmentation, whole-word masking
+\\ \hline
+
+Feature Representation &
+Contextual sub-word embeddings (BERT-style WordPiece tokenization)
+\\ \hline
+
+Model / Algorithm &
+BERT (base and large) architecture pre-trained from scratch on Indian-language corpora
+\\ \hline
+
+Evaluation Metrics &
+Accuracy and F1-score on the XTREME cross-lingual benchmark
+\\ \hline
+
+Key Findings &
+MuRIL significantly outperforms mBERT on all evaluated tasks for Indian languages and handles transliterated (Romanized) text effectively.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item Purpose-built for Indian languages, unlike general multilingual models
+\item Handles both native-script and transliterated Hindi text
+\item Freely available and directly fine-tunable for classification tasks
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Not specifically trained on legal or financial domain text
+\item Base model still requires task-specific fine-tuning and labelled data
+\item Large model size increases inference latency compared to lightweight classifiers
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+Fine-tuning MuRIL on domain-specific Legal/Financial Hindi corpora, as done in this project, can improve classification accuracy over the base pretrained model.
+\\ \hline
+
+\end{longtable}
+
+
+
+\subsection{ILDC for CJPE: Indian Legal Documents Corpus for Court Judgment Prediction and Explanation}
+
+\def\PaperTitle{ILDC for CJPE}
+\def\PaperLabel{tab:paper3}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of ILDC for CJPE}
+\label{tab:paper3}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+V. Malik, R. Sanjay, S. K. Nigam, K. Ghosh, S. K. Guha, A. Bhattacharya, and A. Modi, ``ILDC for CJPE: Indian Legal Documents Corpus for Court Judgment Prediction and Explanation,'' in \textit{Proc. 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (ACL-IJCNLP)}, 2021, pp. 4046--4062.
+\\ \hline
+
+Title &
+ILDC for CJPE: Indian Legal Documents Corpus for Court Judgment Prediction and Explanation
+\\ \hline
+
+Authors &
+Vijit Malik, Rishabh Sanjay, Shubham Kumar Nigam, Kripabandhu Ghosh, Shouvik Kumar Guha, Arnab Bhattacharya, Ashutosh Modi
+\\ \hline
+
+Year of Publication &
+2021
+\\ \hline
+
+Publisher / Conference / Journal &
+Association for Computational Linguistics (ACL-IJCNLP)
+\\ \hline
+
+Objective &
+To introduce a large annotated corpus of Indian legal documents and benchmark transformer models for judgment classification and explanation.
+\\ \hline
+
+Problem Addressed &
+Lack of a large-scale, labelled Indian legal document corpus for training and evaluating legal NLP models.
+\\ \hline
+
+NLP Task &
+Legal Document Classification (judgment prediction) and Explanation
+\\ \hline
+
+Language(s) &
+English (Indian Supreme Court judgments)
+\\ \hline
+
+Dataset &
+ILDC -- over 35,000 Indian Supreme Court case documents
+\\ \hline
+
+Annotation Method &
+Labels derived from actual case outcomes (accepted/rejected), with a manually annotated explainability subset
+\\ \hline
+
+Data Preprocessing &
+Document cleaning, chunking of long documents to fit transformer input limits
+\\ \hline
+
+Feature Representation &
+Transformer-based contextual embeddings (BERT, RoBERTa, XLNet, LegalBERT variants)
+\\ \hline
+
+Model / Algorithm &
+Hierarchical transformer classifiers, fine-tuned BERT/LegalBERT models
+\\ \hline
+
+Evaluation Metrics &
+Accuracy, Macro F1-score
+\\ \hline
+
+Key Findings &
+Domain-adapted legal transformer models (e.g., LegalBERT/InLegalBERT-style pretraining) outperform general-purpose BERT on Indian legal document classification tasks.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item Large-scale, real-world Indian legal document corpus
+\item Establishes a strong benchmark for Indian legal document classification
+\item Demonstrates the value of domain-specific pretraining for legal text
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Restricted to English-language Supreme Court judgments; no Hindi coverage
+\item Focused on judgment outcome prediction rather than general document-type classification
+\item Very long documents pose input-length challenges for transformer models
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+Extending domain-adapted legal transformer pretraining to shorter, everyday legal documents (agreements, notices) and to Hindi text, as targeted in this project.
+\\ \hline
+
+\end{longtable}
+
+\subsection{FinBERT: Financial Sentiment Analysis with Pre-trained Language Models}
+
+\def\PaperTitle{FinBERT}
+\def\PaperLabel{tab:paper4}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of FinBERT}
+\label{tab:paper4}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+D. Araci, ``FinBERT: Financial Sentiment Analysis with Pre-trained Language Models,'' \textit{arXiv preprint arXiv:1908.10063}, 2019.
+\\ \hline
+
+Title &
+FinBERT: Financial Sentiment Analysis with Pre-trained Language Models
+\\ \hline
+
+Authors &
+Dogu Tan Araci
+\\ \hline
+
+Year of Publication &
+2019
+\\ \hline
+
+Publisher / Conference / Journal &
+arXiv preprint (University of Amsterdam)
+\\ \hline
+
+Objective &
+To adapt the BERT language model to the financial domain for improved performance on financial text classification tasks.
+\\ \hline
+
+Problem Addressed &
+General-purpose language models underperform on financial text due to specialized domain vocabulary and limited labelled financial data.
+\\ \hline
+
+NLP Task &
+Financial Document/Sentiment Classification
+\\ \hline
+
+Language(s) &
+English
+\\ \hline
+
+Dataset &
+Financial PhraseBank, FiQA Task-1 Sentiment Dataset
+\\ \hline
+
+Annotation Method &
+Existing expert-annotated sentiment labels from Financial PhraseBank and FiQA
+\\ \hline
+
+Data Preprocessing &
+Standard BERT tokenization (WordPiece), domain-specific further pre-training on financial corpora
+\\ \hline
+
+Feature Representation &
+Contextual embeddings from BERT further pre-trained on financial text
+\\ \hline
+
+Model / Algorithm &
+BERT fine-tuned with a classification head (FinBERT)
+\\ \hline
+
+Evaluation Metrics &
+Accuracy, F1-score, Mean Squared Error (MSE), $R^2$
+\\ \hline
+
+Key Findings &
+Domain-adaptive further pre-training on financial corpora improves classification accuracy substantially over vanilla BERT, even with a small labelled training set.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item Demonstrates strong performance gains from financial domain pre-training
+\item Performs well even with limited labelled data, relevant to this project's 400-record dataset
+\item Openly available pretrained checkpoints
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Restricted to English financial text; no multilingual or Hindi support
+\item Focused on sentiment polarity rather than document-type or intent classification
+\item Domain corpus limited to news/analyst text rather than contracts or loan agreements
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+The domain-adaptive pretraining strategy used in FinBERT motivates fine-tuning multilingual models (e.g., MuRIL) on Hindi financial document text for the proposed system.
+\\ \hline
+
+\end{longtable}
+
+\subsection{Named Entity Recognition in Indian Court Judgments}
+
+\def\PaperTitle{NER in Indian Court Judgments}
+\def\PaperLabel{tab:paper5}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of Named Entity Recognition in Indian Court Judgments}
+\label{tab:paper5}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+P. Kalamkar, A. Agarwal, A. Tiwari, S. Gupta, S. Karn, and V. Raghavan, ``Named Entity Recognition in Indian Court Judgments,'' in \textit{Proc. Natural Legal Language Processing Workshop (NLLP)}, 2022, pp. 184--193.
+\\ \hline
+
+Title &
+Named Entity Recognition in Indian Court Judgments
+\\ \hline
+
+Authors &
+Prathamesh Kalamkar, Astha Agarwal, Aman Tiwari, Smita Gupta, Saurabh Karn, Vivek Raghavan
+\\ \hline
+
+Year of Publication &
+2022
+\\ \hline
+
+Publisher / Conference / Journal &
+Natural Legal Language Processing Workshop, Association for Computational Linguistics
+\\ \hline
+
+Objective &
+To build an annotated corpus and baseline model for extracting fine-grained legal named entities from Indian court judgment text.
+\\ \hline
+
+Problem Addressed &
+Legal named entities (parties, statutes, precedents, case numbers) are more fine-grained than generic entity types and are not well handled by general-purpose NER models.
+\\ \hline
+
+NLP Task &
+Named Entity Recognition (Key Information Extraction)
+\\ \hline
+
+Language(s) &
+English
+\\ \hline
+
+Dataset &
+46,545 annotated legal named entities across 14 entity types, sourced from Indian court judgments
+\\ \hline
+
+Annotation Method &
+Manual annotation across four review cycles by legal annotators
+\\ \hline
+
+Data Preprocessing &
+Sentence segmentation, tokenization using spaCy pipeline
+\\ \hline
+
+Feature Representation &
+Contextual token embeddings from transformer-based encoders
+\\ \hline
+
+Model / Algorithm &
+Transition-based parser / transformer-based sequence labelling model, fine-tuned for entity tagging
+\\ \hline
+
+Evaluation Metrics &
+Entity-level Precision, Recall, F1-score
+\\ \hline
+
+Key Findings &
+Fine-grained, domain-specific entity schemas (e.g., PETITIONER, RESPONDENT, STATUTE, PRECEDENT) substantially improve the usefulness of extracted information for downstream legal applications compared to generic PERSON/ORG/DATE tags.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item Provides a reusable schema of fine-grained legal entity types
+\item Demonstrates that transformer-based sequence labelling generalizes well to legal text
+\item Publicly released dataset and baseline model
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Focused on court judgments rather than everyday contracts, agreements, or financial documents
+\item English-only; no Hindi or multilingual entity extraction
+\item Entity schema does not include financial entities such as loan amount or repayment period
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+Adapting a similar fine-grained entity schema to cover both legal (parties, obligations) and financial (amounts, dates, durations) entities in Hindi text, as required for this project.
+\\ \hline
+
+\end{longtable}
+
+\subsection{BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding}
+
+\def\PaperTitle{BERT}
+\def\PaperLabel{tab:paper6}
+
+\renewcommand{\arraystretch}{1.4}
+
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\caption{Literature Review of BERT}
+\label{tab:paper6}\\
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parameter} & \textbf{Description} \\
+\hline
+\endhead
+
+Reference &
+J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding,'' in \textit{Proc. Conf. North American Chapter of the Association for Computational Linguistics: Human Language Technologies (NAACL-HLT)}, 2019, pp. 4171--4186.
+\\ \hline
+
+Title &
+BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+\\ \hline
+
+Authors &
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+\\ \hline
+
+Year of Publication &
+2019
+\\ \hline
+
+Publisher / Conference / Journal &
+North American Chapter of the Association for Computational Linguistics (NAACL-HLT)
+\\ \hline
+
+Objective &
+To introduce a bidirectional transformer language model pre-trained on large unlabelled text and fine-tunable across a wide range of NLP tasks, including classification and question answering.
+\\ \hline
+
+Problem Addressed &
+Prior language representation models were either unidirectional or shallow bidirectional, limiting their ability to capture full sentence context for downstream tasks.
+\\ \hline
+
+NLP Task &
+General-purpose Language Representation; applicable to Classification, NER, and Question Answering
+\\ \hline
+
+Language(s) &
+English (base model); later extended to multilingual variants
+\\ \hline
+
+Dataset &
+BooksCorpus and English Wikipedia (pre-training); GLUE, SQuAD (fine-tuning benchmarks)
+\\ \hline
+
+Annotation Method &
+Self-supervised pre-training (masked language modelling, next sentence prediction); supervised fine-tuning on labelled downstream datasets
+\\ \hline
+
+Data Preprocessing &
+WordPiece sub-word tokenization
+\\ \hline
+
+Feature Representation &
+Deep bidirectional contextual embeddings via multi-layer Transformer encoder
+\\ \hline
+
+Model / Algorithm &
+Transformer encoder (BERT-Base: 12 layers, BERT-Large: 24 layers)
+\\ \hline
+
+Evaluation Metrics &
+Accuracy on GLUE tasks; Exact Match (EM) and F1-score on SQuAD question answering
+\\ \hline
+
+Key Findings &
+BERT achieves state-of-the-art results across eleven NLP benchmark tasks, and the same pre-trained encoder can be fine-tuned for classification, NER, and extractive question answering with minimal task-specific architecture changes.
+\\ \hline
+
+Advantages &
+\begin{itemize}
+\item Single pre-trained architecture reusable across classification, NER, and QA -- directly relevant to DocSaarthi's multi-task pipeline
+\item Strong empirical performance across diverse NLP tasks
+\item Forms the architectural basis for domain- and language-specific variants such as MuRIL, IndicBERT, and FinBERT
+\end{itemize}
+\\ \hline
+
+Limitations &
+\begin{itemize}
+\item Original model is English-only and not adapted to Indian languages or legal/financial domains
+\item Fixed maximum input sequence length (512 tokens) limits use on long documents
+\item Requires labelled fine-tuning data for each downstream task
+\end{itemize}
+\\ \hline
+
+Possible Improvements &
+Using a language- and domain-adapted descendant of BERT (e.g., MuRIL fine-tuned on Hindi legal/financial text) instead of the original English BERT, as proposed in this project.
+\\ \hline
+
+\end{longtable}
+
+\section{Industrial Solution Review}
+
+\subsection{Google Cloud Document AI}
+Google Cloud Document AI provides managed optical character recognition, document parsing, classification, and specialized processors. It demonstrates the industrial value of converting unstructured documents into machine-readable information. However, a cloud-first commercial workflow can introduce cost, data-governance, and connectivity concerns for users handling sensitive legal and financial documents.
+
+\subsection{Microsoft Azure AI Document Intelligence}
+Azure AI Document Intelligence provides prebuilt and custom extraction models, layout analysis, and integration with enterprise applications. Its strengths include mature deployment support and structured extraction. For the DocSaarthi use case, however, domain-specific bilingual question routing, local source-grounded answers, and an academic low-cost deployment remain application-level responsibilities.
+
+\section{Comparative Analysis}
+
+Table~\ref{tab:comparison} compares the reviewed research papers across the NLP task, dataset, language, feature representation, model, evaluation strategy, strengths, and limitations.
+
+\begin{landscape}
+\renewcommand{\arraystretch}{1.3}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+
+\footnotesize
+
+\begin{longtable}{|
+>{\RaggedRight\arraybackslash}p{1.9cm}|
+>{\RaggedRight\arraybackslash}p{1.9cm}|
+>{\RaggedRight\arraybackslash}p{2.7cm}|
+>{\RaggedRight\arraybackslash}p{1.9cm}|
+>{\RaggedRight\arraybackslash}p{2.1cm}|
+>{\RaggedRight\arraybackslash}p{1.9cm}|
+>{\RaggedRight\arraybackslash}p{1.9cm}|
+>{\RaggedRight\arraybackslash}p{2.7cm}|
+>{\RaggedRight\arraybackslash}p{2.7cm}|}
+
+\caption{Comparative Analysis of Existing Research}
+\label{tab:comparison}\\
+
+\hline
+\textbf{Work} &
+\textbf{NLP Task} &
+\textbf{Dataset} &
+\textbf{Language} &
+\textbf{Features} &
+\textbf{Model} &
+\textbf{Evaluation} &
+\textbf{Strengths} &
+\textbf{Limitations}\\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Work} &
+\textbf{NLP Task} &
+\textbf{Dataset} &
+\textbf{Language} &
+\textbf{Features} &
+\textbf{Model} &
+\textbf{Evaluation} &
+\textbf{Strengths} &
+\textbf{Limitations}\\
+\hline
+\endhead
+
+IndicTrans2 \cite{gala2023indictrans2}
+&
+Translation
+&
+BPCC (230M pairs)
+&
+Eng. + 22 Indic
+&
+Subword embeddings
+&
+Transformer NMT
+&
+BLEU, chrF++, COMET
+&
+All-22-language coverage, open-source
+&
+No legal/financial domain tuning
+\\ \hline
+
+MuRIL \cite{khanuja2021muril}
+&
+Multilingual Representation
+&
+Wikipedia, Common Crawl, Dakshina
+&
+17 Indic incl. Hindi
+&
+Contextual sub-word embeddings
+&
+BERT (base/large)
+&
+XTREME (Acc./F1)
+&
+Strong Indic + transliteration support
+&
+No legal/financial pretraining
+\\ \hline
+
+ILDC/CJPE \cite{malik2021ildc}
+&
+Legal Classification
+&
+35k Supreme Court cases
+&
+English
+&
+Transformer embeddings
+&
+LegalBERT
+&
+Accuracy, Macro-F1
+&
+Large legal benchmark
+&
+English-only, judgment-focused
+\\ \hline
+
+FinBERT \cite{araci2019finbert}
+&
+Financial Classification
+&
+Financial PhraseBank, FiQA
+&
+English
+&
+Domain-tuned BERT embeddings
+&
+Fine-tuned BERT
+&
+Accuracy, F1, MSE
+&
+Works well on small labelled data
+&
+English-only, sentiment-focused
+\\ \hline
+
+Legal NER \cite{kalamkar2022ner}
+&
+Key Information Extraction
+&
+46.5k legal entities
+&
+English
+&
+Contextual token embeddings
+&
+Transformer sequence tagger
+&
+Precision, Recall, F1
+&
+Fine-grained legal entity schema
+&
+No financial entities, English-only
+\\ \hline
+
+BERT \cite{devlin2019bert}
+&
+General LM / QA
+&
+BooksCorpus, Wikipedia, SQuAD
+&
+English
+&
+Deep bidirectional embeddings
+&
+Transformer encoder
+&
+GLUE Acc., SQuAD EM/F1
+&
+Reusable across tasks, strong baseline
+&
+Not domain/language adapted
+\\ \hline
+
+\end{longtable}
+\end{landscape}
+
+\normalsize
+
+\section{Research Gap Analysis}
+
+The reviewed literature demonstrates strong individual progress in each of the four NLP sub-tasks required by \textit{DocSaarthi}: high-quality English-Indic translation (IndicTrans2), Indic-adapted language representation (MuRIL), legal document classification (ILDC/CJPE), financial text classification (FinBERT), legal key-information extraction (Legal NER), and the general transformer architecture underlying question answering (BERT). However, the following gaps remain:
+
+\begin{itemize}
+    \item No reviewed work integrates translation, classification, extraction, and question answering into a single end-to-end pipeline for Indian users.
+    \item Legal NLP research (ILDC, Legal NER) is almost exclusively English-only and focused on formal court judgments rather than everyday legal documents such as service agreements or confidentiality clauses.
+    \item Financial NLP research (FinBERT) is similarly English-only and centred on sentiment analysis of news/analyst text rather than classification of financial documents such as loan or insurance contracts.
+    \item None of the reviewed legal or financial entity-extraction approaches operate on Hindi text, despite Hindi being a primary language of everyday legal and financial communication in India.
+    \item Bilingual (English + Hindi) answer generation for legal/financial document question answering is not addressed by any of the reviewed works.
+\end{itemize}
+
+\section{Proposed Improvements}
+
+The identified gaps motivate an integrated, bilingual assistant rather than a single isolated NLP model. DocSaarthi improves accessibility by combining local PDF extraction, English-Hindi language handling, Legal/Financial classification, structured value extraction, chunk-level retrieval, page citations, and an explicit abstention response. The implemented prototype uses lightweight lexical and rule-based methods so that it can run on modest hardware. Transformer fine-tuning remains a future enhancement after a larger real-world, licensed corpus is available.
+
+\section*{Chapter Summary}
+
+This chapter reviewed six research papers covering machine translation, multilingual language representation, legal document classification, financial text classification, legal named entity recognition, and the foundational BERT transformer architecture. A comparative analysis of the reviewed works was presented, followed by an identification of research gaps -- principally the absence of an integrated, Hindi-capable, multi-task pipeline for legal and financial document understanding -- and a discussion of how the proposed \textit{DocSaarthi} system addresses these gaps. The next chapter describes the dataset collected and used for the classification and question-answering components of the proposed system.

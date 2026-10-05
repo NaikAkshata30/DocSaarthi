@@ -1,0 +1,90 @@
+\chapter{Error Analysis and Model Improvement}
+\label{chap:error_analysis}
+
+\section{Introduction}
+Error analysis was used to convert observed risks into regression tests and safeguards. Particular attention was given to unsupported answers, bilingual retrieval failures, translation corruption, PDF formatting artefacts, and misclassification.
+
+\section{Error Analysis Methodology}
+Each failure mode was reproduced with a minimal document and query. The expected source excerpt, output language, preserved values, page reference, or abstention behavior was then encoded as an automated assertion. A correction was accepted only after the original case and the full suite passed.
+
+\section{Error Categories}
+The principal categories were language and answer ordering, Legal/Financial classification, cross-language retrieval and grounding, translation fidelity, PDF extraction and processing, and Unicode robustness.
+
+\section{Representative Error Cases}
+\begin{longtable}{|p{3.8cm}|p{4.8cm}|p{5cm}|}
+\hline
+\textbf{Case} & \textbf{Risk} & \textbf{Implemented Response} \\
+\hline
+Unsupported PAN question & Fabricated identifier & Return a grounded ``not found'' answer with no citation \\
+\hline
+Hindi query on English PDF & No relevant cross-language match & Expand bilingual intent and terminology signals before retrieval \\
+\hline
+PDF line break inside sentence & Evidence split across chunks & Repair line breaks before sentence and chunk processing \\
+\hline
+Hinglish translation & Reduced readability and altered meaning & Reject invalid output using script and preservation checks \\
+\hline
+Amounts, dates, or percentages changed & Financial meaning corrupted & Validate protected values against the source \\
+\hline
+External translation failure & Upload or analysis blocked & Defer translation and retain the original source result \\
+\hline
+\end{longtable}
+
+\section{Error Distribution}
+The following table describes regression-test coverage, not production error frequency. Each of the 18 tests is assigned to its primary risk category.
+
+\begin{table}[H]
+\centering
+\caption{Distribution of Automated Validation Coverage}
+\begin{tabular}{|p{7cm}|c|c|}
+\hline
+\textbf{Primary Category} & \textbf{Tests} & \textbf{Share} \\
+\hline
+Language and answer ordering & 2 & 11.1\% \\
+\hline
+Classification and confidence & 2 & 11.1\% \\
+\hline
+Retrieval, grounding, and abstention & 5 & 27.8\% \\
+\hline
+Translation fidelity and value preservation & 6 & 33.3\% \\
+\hline
+PDF extraction and processing & 2 & 11.1\% \\
+\hline
+Unicode robustness & 1 & 5.6\% \\
+\hline
+\textbf{Total} & \textbf{18} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Analysis of Error Causes}
+The dominant causes are vocabulary mismatch between languages, unreliable layout in extracted PDFs, preservation-sensitive financial values, insufficient evidence, and dependency failure. These causes are architectural rather than a single trainable-model problem, so they require layered validation and fallback behavior.
+
+\section{Model Improvement}
+Improvements include Unicode normalization, line-break repair, page-linked chunking, bilingual retrieval signals, protected-value validation, on-demand translation, source-only answer grounding, and explicit abstention. Classification confidence is constrained to a narrow range to avoid presenting an uncalibrated score as certainty.
+
+\section{Before and After Improvement}
+\begin{table}[H]
+\centering
+\caption{Before and After Improvement}
+\begin{tabular}{|p{5.8cm}|p{7.2cm}|}
+\hline
+\textbf{Before} & \textbf{After} \\
+\hline
+Weak match could be returned for missing facts & Unsupported questions abstain and expose no false source \\
+\hline
+Translation coupled to document processing & Upload remains usable even if translation fails \\
+\hline
+Line breaks could fragment evidence & Sentence continuity is restored before chunking \\
+\hline
+Mixed-language output could pass through & Hindi output is checked for natural script usage \\
+\hline
+Critical values could drift in translation & Names, dates, amounts, and percentages are verified \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Discussion of Improvement}
+The final suite passing 18/18 confirms that the selected safeguards work for the encoded cases. It does not prove completeness: OCR errors, adversarial documents, unfamiliar terminology, and large-scale latency remain open evaluation areas.
+
+\section*{Chapter Summary}
+The improvement process prioritized trustworthiness and traceability. Every material safeguard is connected to a repeatable test, while unresolved limitations are stated explicitly.

@@ -1,0 +1,90 @@
+import fs from 'node:fs/promises';
+import { Workbook } from '@oai/artifact-tool';
+
+const rows = [
+['LEGAL','Agreement','This Agreement is governed by the laws of India.','यह समझौता भारत के कानूनों द्वारा शासित होगा।'],
+['LEGAL','Jurisdiction','Courts at Mumbai, Maharashtra have jurisdiction where legally permitted.','जहाँ कानूनन अनुमति हो, वहाँ मुंबई, महाराष्ट्र के न्यायालयों को अधिकार-क्षेत्र प्राप्त होगा।'],
+['LEGAL','Termination','Either party may terminate this Agreement by giving thirty days prior written notice.','कोई भी पक्ष तीस दिन पहले लिखित सूचना देकर इस समझौते को समाप्त कर सकता है।'],
+['LEGAL','Notice','All notices must be provided in writing to the registered address of the receiving party.','सभी सूचनाएँ प्राप्तकर्ता पक्ष के पंजीकृत पते पर लिखित रूप में दी जानी चाहिए।'],
+['LEGAL','Confidentiality','Each party shall keep confidential information secure and use it only for this Agreement.','प्रत्येक पक्ष गोपनीय जानकारी को सुरक्षित रखेगा और उसका उपयोग केवल इस समझौते के लिए करेगा।'],
+['LEGAL','Breach','A party must cure a material breach within fifteen days after written notice.','किसी पक्ष को लिखित सूचना मिलने के पंद्रह दिनों के भीतर गंभीर उल्लंघन का निवारण करना होगा।'],
+['LEGAL','Dispute','The parties shall first attempt to resolve the dispute through good-faith discussions.','पक्ष पहले सद्भावपूर्ण बातचीत के माध्यम से विवाद सुलझाने का प्रयास करेंगे।'],
+['LEGAL','Remedy','The Borrower may use any regulator, ombudsman, court, or other remedy available under applicable law.','उधारकर्ता लागू कानून के अंतर्गत उपलब्ध नियामक, लोकपाल, न्यायालय या अन्य उपाय का उपयोग कर सकता है।'],
+['LEGAL','Liability','Neither party is liable for indirect or consequential losses except where prohibited by law.','कानून द्वारा निषिद्ध मामलों को छोड़कर कोई भी पक्ष अप्रत्यक्ष या परिणामी हानि के लिए उत्तरदायी नहीं होगा।'],
+['LEGAL','Force Majeure','A party is not liable for delay caused by events beyond its reasonable control.','किसी पक्ष के उचित नियंत्रण से बाहर की घटनाओं के कारण हुई देरी के लिए वह उत्तरदायी नहीं होगा।'],
+['FINANCIAL','Loan','The Lender agrees to lend, and the Borrower agrees to borrow, a principal amount of INR 5,00,000.','ऋणदाता 5,00,000 रुपये की मूलधन राशि उधार देने और उधारकर्ता उसे उधार लेने पर सहमत हैं।'],
+['FINANCIAL','Disbursement','The net proceeds will be transferred to the Borrower’s registered bank account.','शुद्ध ऋण राशि उधारकर्ता के पंजीकृत बैंक खाते में स्थानांतरित की जाएगी।'],
+['FINANCIAL','Fee','A processing fee of INR 5,000 plus applicable taxes will be deducted before disbursement.','वितरण से पहले 5,000 रुपये का प्रसंस्करण शुल्क और लागू कर काटे जाएंगे।'],
+['FINANCIAL','Interest','Interest is charged at a fixed annual rate of 9.50% on the reducing principal balance.','घटती मूलधन शेष राशि पर 9.50% की निश्चित वार्षिक दर से ब्याज लगाया जाएगा।'],
+['FINANCIAL','Interest','Interest is calculated daily and applied monthly according to the repayment schedule.','ब्याज की गणना प्रतिदिन की जाएगी और पुनर्भुगतान अनुसूची के अनुसार मासिक रूप से लागू किया जाएगा।'],
+['FINANCIAL','Repayment','The Borrower shall pay 36 monthly instalments of INR 16,026 each.','उधारकर्ता 16,026 रुपये की 36 मासिक किस्तों का भुगतान करेगा।'],
+['FINANCIAL','Repayment','Every instalment is due on or before the 5th day of each month.','प्रत्येक किस्त हर महीने की 5 तारीख को या उससे पहले देय होगी।'],
+['FINANCIAL','Repayment','Every instalment is due on or before the 5th day of each month through the repayment method registered with the Lender.','प्रत्येक किस्त हर महीने की 5 तारीख को या उससे पहले देय होगी और उसका भुगतान ऋणदाता के पास पंजीकृत पुनर्भुगतान माध्यम से किया जाएगा।'],
+['FINANCIAL','Repayment','Payments shall be made through the repayment method registered with the Lender.','भुगतान ऋणदाता के पास पंजीकृत पुनर्भुगतान माध्यम से किया जाएगा।'],
+['FINANCIAL','Repayment','The final amount may vary slightly because of rounding or permitted adjustments.','पूर्णांकन या अनुमत समायोजन के कारण अंतिम राशि में थोड़ा अंतर हो सकता है।'],
+['FINANCIAL','Date','The first instalment is due on 5 November 2026.','पहली किस्त 5 नवंबर 2026 को देय होगी।'],
+['FINANCIAL','Date','The first instalment is due on 5 November 2026 and the final scheduled instalment is due on 5 October 2029.','पहली किस्त 5 नवंबर 2026 को और अंतिम निर्धारित किस्त 5 अक्टूबर 2029 को देय होगी।'],
+['FINANCIAL','Date','The first EMI due date is 5 November 2026.','पहली ईएमआई की देय तिथि 5 नवंबर 2026 है।'],
+['FINANCIAL','Date','The final scheduled instalment is due on 5 October 2029.','अंतिम निर्धारित किस्त 5 अक्टूबर 2029 को देय होगी।'],
+['FINANCIAL','Date','The final scheduled due date is 5 October 2029.','अंतिम निर्धारित देय तिथि 5 अक्टूबर 2029 है।'],
+['FINANCIAL','Date','The important dates are 10 October 2026, 15 October 2026, 5 November 2026, 5 October 2029.','महत्वपूर्ण तिथियाँ 10 अक्टूबर 2026, 15 अक्टूबर 2026, 5 नवंबर 2026 और 5 अक्टूबर 2029 हैं।'],
+['FINANCIAL','Late Payment','If an instalment remains unpaid for more than 5 calendar days after its due date, a late-payment charge of INR 500 may be applied.','यदि कोई किस्त देय तिथि के बाद 5 कैलेंडर दिनों से अधिक समय तक अवैतनिक रहती है, तो 500 रुपये का विलंब भुगतान शुल्क लगाया जा सकता है।'],
+['FINANCIAL','Late Payment','If an instalment remains unpaid for more than 5 calendar days after its due date, a late-payment charge of INR 500 may be applied, subject to applicable law.','यदि कोई किस्त देय तिथि के बाद 5 कैलेंडर दिनों से अधिक समय तक अवैतनिक रहती है, तो लागू कानून के अधीन 500 रुपये का विलंब भुगतान शुल्क लगाया जा सकता है।'],
+['FINANCIAL','Late Payment','A late-payment charge of INR 500 may be applied, subject to applicable law and the Lender’s policies.','लागू कानून और ऋणदाता की नीतियों के अधीन 500 रुपये का विलंब भुगतान शुल्क लगाया जा सकता है।'],
+['FINANCIAL','Late Payment','A late-payment charge of INR 500 may be applied when an instalment remains unpaid for more than 5 calendar days after its due date.','यदि कोई किस्त देय तिथि के बाद 5 कैलेंडर दिनों से अधिक समय तक अवैतनिक रहती है, तो 500 रुपये का विलंब भुगतान शुल्क लगाया जा सकता है।'],
+['FINANCIAL','Dishonour','A failed or dishonoured payment may attract actual bank charges.','असफल या अस्वीकृत भुगतान पर वास्तविक बैंक शुल्क लगाया जा सकता है।'],
+['FINANCIAL','Default','An event of default occurs if the Borrower does not pay 2 consecutive instalments.','यदि उधारकर्ता लगातार 2 किस्तों का भुगतान नहीं करता है, तो यह चूक की घटना मानी जाएगी।'],
+['FINANCIAL','Default','After default, the Lender may demand the outstanding balance, accrued interest, and lawful charges.','चूक के बाद ऋणदाता बकाया राशि, अर्जित ब्याज और वैध शुल्क की मांग कर सकता है।'],
+['FINANCIAL','Prepayment','The Borrower may request partial or full prepayment after 6 completed instalments.','उधारकर्ता 6 किस्तें पूरी होने के बाद आंशिक या पूर्ण पूर्व-भुगतान का अनुरोध कर सकता है।'],
+['FINANCIAL','Prepayment','A prepayment fee of 2% of the principal amount prepaid, plus applicable taxes, may apply.','पूर्व-भुगतान की गई मूलधन राशि पर 2% पूर्व-भुगतान शुल्क और लागू कर लग सकते हैं।'],
+['FINANCIAL','Statement','The Borrower may request an account statement, amortisation schedule, or payment receipt without charge.','उधारकर्ता बिना शुल्क के खाता विवरण, परिशोधन अनुसूची या भुगतान रसीद का अनुरोध कर सकता है।'],
+['FINANCIAL','Dispute','Any disputed transaction should be reported within 30 days of the statement date.','किसी भी विवादित लेनदेन की सूचना विवरण तिथि से 30 दिनों के भीतर दी जानी चाहिए।'],
+['FINANCIAL','Privacy','The Lender may report accurate repayment information to authorised credit information companies.','ऋणदाता अधिकृत क्रेडिट सूचना कंपनियों को सही पुनर्भुगतान जानकारी दे सकता है।'],
+['FINANCIAL','Privacy','Personal data may be processed for servicing, fraud prevention, regulatory compliance, and recovery as permitted by law.','कानून द्वारा अनुमत सीमा तक व्यक्तिगत डेटा का उपयोग सेवा, धोखाधड़ी रोकथाम, नियामकीय अनुपालन और वसूली के लिए किया जा सकता है।'],
+['FINANCIAL','Summary','The principal loan amount is INR 5,00,000.','ऋण की मूलधन राशि 5,00,000 रुपये है।'],
+['FINANCIAL','Summary','The annual interest rate is 9.50%.','वार्षिक ब्याज दर 9.50% है।'],
+['FINANCIAL','Summary','The loan tenure is 36 months.','ऋण की अवधि 36 महीने है।'],
+['FINANCIAL','Summary','The monthly EMI is INR 16,026.','मासिक ईएमआई 16,026 रुपये है।'],
+['FINANCIAL','Risk','Late charges do not replace the obligation to pay the overdue instalment and accrued interest.','विलंब शुल्क से अतिदेय किस्त और अर्जित ब्याज चुकाने का दायित्व समाप्त नहीं होता है।'],
+['FINANCIAL','Statement','The following entries represent deposits, withdrawals, charges and interest posted during the statement period.','निम्नलिखित प्रविष्टियाँ विवरण अवधि के दौरान दर्ज जमा, निकासी, शुल्क और ब्याज को दर्शाती हैं।'],
+['FINANCIAL','Statement','Report an unauthorised transaction within 30 days of the statement date.','किसी अनधिकृत लेनदेन की सूचना विवरण तिथि से 30 दिनों के भीतर दें।'],
+['FINANCIAL','Statement','Interest credited is subject to applicable tax rules.','जमा किया गया ब्याज लागू कर नियमों के अधीन है।'],
+['FINANCIAL','Statement','The closing available balance on 30 September 2026 is INR 96,740.00.','30 सितंबर 2026 को उपलब्ध अंतिम शेष राशि 96,740.00 रुपये है।'],
+['FINANCIAL','Statement','A minimum average balance of INR 10,000 is required.','कम से कम 10,000 रुपये का औसत शेष बनाए रखना आवश्यक है।'],
+['LEGAL','Rent','The monthly rent is INR 28,000, payable on or before the 5th day of each month.','मासिक किराया 28,000 रुपये है, जिसका भुगतान प्रत्येक महीने की 5 तारीख को या उससे पहले करना होगा।'],
+['LEGAL','Rent','The Tenant shall pay a refundable security deposit of INR 84,000.','किरायेदार 84,000 रुपये की वापसी योग्य सुरक्षा जमा राशि देगा।'],
+['LEGAL','Use','The premises shall be used only as a private residence.','परिसर का उपयोग केवल निजी आवास के रूप में किया जाएगा।'],
+['LEGAL','Use','Subletting and commercial activity require prior written consent.','उप-किराए और व्यावसायिक गतिविधि के लिए पूर्व लिखित सहमति आवश्यक है।'],
+['LEGAL','Maintenance','The Tenant shall pay electricity, internet and routine usage charges.','किरायेदार बिजली, इंटरनेट और नियमित उपयोग शुल्क का भुगतान करेगा।'],
+['LEGAL','Maintenance','The Landlord remains responsible for structural repairs not caused by the Tenant.','किरायेदार के कारण न हुई संरचनात्मक मरम्मत की जिम्मेदारी मकान मालिक की रहेगी।'],
+['LEGAL','Inspection','The Landlord may inspect the premises after giving at least 24 hours prior notice, except in an emergency.','आपात स्थिति को छोड़कर मकान मालिक कम से कम 24 घंटे पहले सूचना देकर परिसर का निरीक्षण कर सकता है।'],
+['LEGAL','Termination','Either party may terminate this Agreement by giving 30 days prior written notice.','कोई भी पक्ष 30 दिन पहले लिखित सूचना देकर इस समझौते को समाप्त कर सकता है।'],
+['LEGAL','Breach','Unpaid rent for 15 days after its due date is a material breach.','देय तिथि के 15 दिन बाद तक किराया न चुकाना गंभीर उल्लंघन माना जाएगा।'],
+['LEGAL','Dispute','The parties shall first attempt good-faith settlement.','पक्ष पहले सद्भावपूर्ण समझौते से विवाद सुलझाने का प्रयास करेंगे।'],
+['LEGAL','Jurisdiction','Courts at Pune, Maharashtra have jurisdiction where legally permitted.','जहाँ कानूनन अनुमति हो, वहाँ पुणे, महाराष्ट्र के न्यायालयों को अधिकार-क्षेत्र प्राप्त होगा।'],
+['LEGAL','Employment','The Employee is appointed as Document Operations Analyst with a gross monthly salary of INR 72,000, subject to statutory deductions.','कर्मचारी को वैधानिक कटौतियों के अधीन 72,000 रुपये के सकल मासिक वेतन पर दस्तावेज़ संचालन विश्लेषक के पद पर नियुक्त किया जाता है।'],
+['LEGAL','Duties','The Employee shall perform assigned document review, customer support and records-management duties with reasonable skill and care.','कर्मचारी सौंपे गए दस्तावेज़ समीक्षा, ग्राहक सहायता और अभिलेख प्रबंधन के कार्य उचित कौशल और सावधानी से करेगा।'],
+['LEGAL','Confidentiality','Confidential information and personal data may be used only for authorised work.','गोपनीय जानकारी और व्यक्तिगत डेटा का उपयोग केवल अधिकृत कार्य के लिए किया जा सकता है।'],
+['LEGAL','Confidentiality','This obligation continues after termination.','यह दायित्व सेवा समाप्त होने के बाद भी जारी रहेगा।'],
+['LEGAL','Intellectual Property','Work product created within assigned duties belongs to the Employer to the extent permitted by law.','सौंपे गए कार्यों के दौरान तैयार कार्य-उत्पाद कानून द्वारा अनुमत सीमा तक नियोक्ता का होगा।'],
+['LEGAL','Conduct','Leave is governed by company policy and applicable law.','अवकाश कंपनी की नीति और लागू कानून द्वारा नियंत्रित होगा।'],
+['LEGAL','Conduct','Fraud, harassment, deliberate data misuse, or repeated serious misconduct may result in disciplinary action.','धोखाधड़ी, उत्पीड़न, जानबूझकर डेटा का दुरुपयोग या बार-बार गंभीर कदाचार के परिणामस्वरूप अनुशासनात्मक कार्रवाई हो सकती है।'],
+['LEGAL','Termination','Either party may terminate employment by giving 30 days written notice or salary in lieu, subject to applicable law.','लागू कानून के अधीन कोई भी पक्ष 30 दिन की लिखित सूचना या उसके बदले वेतन देकर रोजगार समाप्त कर सकता है।'],
+['LEGAL','Dispute','Disputes shall first be referred to internal grievance review.','विवादों को पहले आंतरिक शिकायत समीक्षा के लिए भेजा जाएगा।'],
+['GENERAL','Not Found','I could not find this information in the uploaded document.','मुझे अपलोड किए गए दस्तावेज़ में यह जानकारी नहीं मिली।'],
+['GENERAL','Greeting','Hello! Ask me a question about the uploaded document.','नमस्ते! अपलोड किए गए दस्तावेज़ के बारे में कोई प्रश्न पूछिए।'],
+['GENERAL','Thanks','You are welcome. Ask me anything about the uploaded document.','आपका स्वागत है। अपलोड किए गए दस्तावेज़ के बारे में कोई प्रश्न पूछिए।'],
+['GENERAL','Source','This answer is based only on the uploaded document.','यह उत्तर केवल अपलोड किए गए दस्तावेज़ पर आधारित है।'],
+['GENERAL','Disclaimer','This is not legal or financial advice.','यह कानूनी या वित्तीय सलाह नहीं है।']
+];
+
+const header = ['id','domain','intent','english','hindi'];
+const escape = value => `"${String(value).replaceAll('"','""')}"`;
+const csv = [header.join(','), ...rows.map((row,index)=>[String(index+1).padStart(3,'0'),...row].map(escape).join(','))].join('\r\n')+'\r\n';
+const output = new URL('../data/english-hindi-parallel.csv', import.meta.url);
+await fs.mkdir(new URL('../data/', import.meta.url), { recursive: true });
+const workbook = await Workbook.fromCSV(csv, { sheetName: 'Parallel translations' });
+const check = await workbook.inspect({ kind: 'table', range: `Parallel translations!A1:E${rows.length+1}`, include: 'values', tableMaxRows: rows.length+1, tableMaxCols: 5, maxChars: 20000 });
+if (!check.ndjson.includes('english') || !check.ndjson.includes('hindi')) throw new Error('Dataset validation failed.');
+await fs.writeFile(output, csv, 'utf8');
+console.log(JSON.stringify({ output: output.pathname, rows: rows.length, columns: header.length }));

@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-Open `http://localhost:4173`. `OPENAI_API_KEY` is optional: without it, local extraction, hybrid lexical retrieval, citations, intent hints and safeguarded answers work; with it, fluent bilingual synthesis and translation are enabled.
+Open `http://localhost:4173`. PDF extraction, intent routing, retrieval, citations, safeguarded answers, and supported English/Hindi translations run locally. Translation uses `data/english-hindi-parallel.csv` as an offline translation memory, so no translation API key is required. Sentences outside that dataset are reported as unsupported rather than guessed. OpenAI remains an explicitly optional enhancement and is used only when `USE_OPENAI=true`.
 
 The 400-row Hindi dataset is used only for supporting query-intent signals across Agreement, Confidentiality, Court Proceeding, Finance, General, Insurance, Loan, Payment, and Tax. It never supplies document facts.
 

@@ -1,0 +1,57 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Literature Review of IndicTrans2\relax }}{8}{table.2.1}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Literature Review of MuRIL\relax }}{10}{table.2.2}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Literature Review of ILDC for CJPE\relax }}{13}{table.2.3}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Literature Review of FinBERT\relax }}{15}{table.2.4}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Literature Review of Named Entity Recognition in Indian Court Judgments\relax }}{17}{table.2.5}%
+\contentsline {table}{\numberline {2.6}{\ignorespaces Literature Review of BERT\relax }}{19}{table.2.6}%
+\contentsline {table}{\numberline {2.7}{\ignorespaces Comparative Analysis of Existing Research\relax }}{22}{table.2.7}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Dataset Description\relax }}{27}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Dataset Characteristics\relax }}{28}{table.3.2}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Sample Dataset Records\relax }}{29}{table.caption.4}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Data Cleaning Operations\relax }}{35}{table.4.1}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Tokenization Example\relax }}{37}{table.caption.5}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Stopword Processing\relax }}{38}{table.caption.6}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Before and After Data Preprocessing Examples\relax }}{39}{table.caption.7}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Missing Value Analysis\relax }}{40}{table.caption.8}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Top 10 Most Frequent Bigrams\relax }}{43}{table.caption.12}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Representative Before and After Preprocessing Cases\relax }}{45}{table.caption.15}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.3}{\ignorespaces Hardware Requirements\relax }}{54}{table.caption.18}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Software Requirements\relax }}{55}{table.caption.19}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Hardware Environment\relax }}{59}{table.caption.20}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Software Environment\relax }}{59}{table.caption.21}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Training and Processing Configuration\relax }}{65}{table.caption.22}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Implementation Challenges and Solutions\relax }}{66}{table.caption.23}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Baseline Configuration\relax }}{71}{table.caption.26}%
+\contentsline {table}{\numberline {7.2}{\ignorespaces Proposed Model Configuration\relax }}{73}{table.caption.27}%
+\contentsline {table}{\numberline {7.3}{\ignorespaces Feature Representation Experiments\relax }}{74}{table.caption.28}%
+\contentsline {table}{\numberline {7.4}{\ignorespaces Baseline and Proposed Model Comparison\relax }}{75}{table.caption.29}%
+\contentsline {table}{\numberline {7.5}{\ignorespaces Processing Parameter Experimentation\relax }}{77}{table.caption.30}%
+\contentsline {table}{\numberline {7.6}{\ignorespaces Selected Model and Configuration\relax }}{79}{table.caption.31}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Individual Contribution Matrix\relax }}{82}{table.caption.32}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces Problems Encountered and Implemented Solutions\relax }}{87}{table.caption.33}%
+\contentsline {table}{\numberline {8.3}{\ignorespaces Technology Adoption\relax }}{89}{table.caption.34}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {9.1}{\ignorespaces Review 3 Quantitative Results\relax }}{94}{table.caption.35}%
+\contentsline {table}{\numberline {9.2}{\ignorespaces Confusion Matrix for the Eight-Document Holdout\relax }}{94}{table.caption.36}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.2}{\ignorespaces Distribution of Automated Validation Coverage\relax }}{98}{table.caption.37}%
+\contentsline {table}{\numberline {10.3}{\ignorespaces Before and After Improvement\relax }}{99}{table.caption.38}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {13.1}{\ignorespaces Review 3 Work Distribution\relax }}{106}{table.caption.40}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

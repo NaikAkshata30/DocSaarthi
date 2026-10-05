@@ -1,0 +1,13 @@
+.env
+.artifact-runtime/
+.models/
+.git/
+node_modules/
+output/
+tmp/
+coverage/
+PROJECT_REPORT.md
+scripts/
+test/
+*.png
+*.pdf

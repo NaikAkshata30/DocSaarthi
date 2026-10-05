@@ -1,0 +1,23 @@
+\chapter{SDG, Sustainability, Safety and Societal Impact}
+\label{chap:sdg_impact}
+
+\section{Introduction}
+DocSaarthi is intended to make complex legal and financial documents easier to explore without replacing qualified professional advice. This chapter connects the prototype to sustainable development, safety, ethics, and responsible use.
+
+\section{SDG Alignment}
+The project primarily supports United Nations Sustainable Development Goal 16, especially access to information and more inclusive institutions, by presenting document-grounded information in English and Hindi. It also supports SDG 10 by reducing language-based barriers and SDG 4 by helping users learn the terminology and structure of formal documents.
+
+\section{Sustainability Considerations}
+The lightweight rule-based and lexical pipeline runs on modest hardware and avoids mandatory large-model inference for every request. On-demand translation prevents unnecessary work. Digital document analysis can reduce repeated printing, although server operation, storage, and optional external AI services still consume energy and should be monitored in future deployments.
+
+\section{Safety and Ethical Considerations}
+Legal and financial content is sensitive and high impact. The system therefore keeps the uploaded PDF as the primary source, displays evidence, preserves important values, abstains when evidence is insufficient, and describes its output as assistance rather than professional advice. Synthetic evaluation data reduces privacy risk during testing.
+
+\section{Societal Impact}
+Potential benefits include improved access for Hindi-speaking users, faster identification of clauses and values, and better preparation before seeking professional help. Potential harms include over-reliance, incorrect interpretation, exposure of confidential documents, and unequal performance across document styles or languages.
+
+\section{Responsible Use and Limitations}
+Users must verify answers against the displayed source page and consult a lawyer, accountant, bank, or other qualified professional for consequential decisions. A production system requires encryption, user authentication, retention controls, access logs, consent, secure deletion, bias monitoring, and a clear incident-response process. The current prototype must not be used as an autonomous legal or financial decision maker.
+
+\section*{Chapter Summary}
+DocSaarthi can improve information accessibility when used as a transparent, source-linked assistant. Its benefits depend on privacy protection, careful limitation of claims, and continued human oversight.

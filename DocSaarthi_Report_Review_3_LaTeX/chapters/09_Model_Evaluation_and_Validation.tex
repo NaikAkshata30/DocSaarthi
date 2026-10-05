@@ -1,0 +1,66 @@
+\chapter{Model Evaluation and Validation}
+\label{chap:model_evaluation}
+
+\section{Introduction}
+This chapter evaluates the implemented DocSaarthi prototype using repeatable automated tests and a labelled bilingual PDF holdout. The purpose is to verify domain classification, language detection, cross-language retrieval, translation fidelity, source grounding, and safe abstention.
+
+\section{Evaluation Methodology}
+Three complementary checks were used: 18 Node.js regression tests, an eight-document labelled holdout containing four Legal and four Financial PDFs in English and Hindi, and manual inspection of representative answers and citations. The holdout is synthetic and deliberately small; therefore, its scores demonstrate prototype correctness on the controlled benchmark and are not presented as production accuracy.
+
+\section{Evaluation Metrics}
+Classification is reported using accuracy, per-class precision, recall, F1-score, macro-F1, and a confusion matrix. Language detection is reported using accuracy. Retrieval and answer generation are validated through expected evidence matching, page-number preservation, value preservation, and abstention assertions.
+
+\section{Quantitative Evaluation}
+All 18 automated tests passed. The labelled holdout produced eight correct document-domain predictions and eight correct language predictions.
+
+\begin{table}[H]
+\centering
+\caption{Review 3 Quantitative Results}
+\begin{tabular}{|p{7cm}|p{5cm}|}
+\hline
+\textbf{Measure} & \textbf{Result} \\
+\hline
+Automated regression tests & 18/18 passed \\
+\hline
+Document classification accuracy & 100\% (8/8) \\
+\hline
+Macro-averaged F1-score & 1.00 \\
+\hline
+Legal precision / recall / F1 & 1.00 / 1.00 / 1.00 \\
+\hline
+Financial precision / recall / F1 & 1.00 / 1.00 / 1.00 \\
+\hline
+Language detection accuracy & 100\% (8/8) \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Model Performance}
+The rule-based classifier correctly separated all four Legal and four Financial samples. Displayed confidence values ranged from 0.82 to 0.84. These confidence values are bounded interface indicators rather than calibrated probabilities.
+
+\section{Comparative Evaluation}
+Compared with the earlier direct keyword baseline, the implemented pipeline adds page-linked chunks, bilingual query support, value-preserving translation checks, explicit grounding, and an abstention path. The comparison is functional because a sufficiently large real-world benchmark for statistically significant model comparison is not yet available.
+
+\section{Class-wise / Category-wise Evaluation}
+\begin{table}[H]
+\centering
+\caption{Confusion Matrix for the Eight-Document Holdout}
+\begin{tabular}{|p{4cm}|c|c|}
+\hline
+\textbf{Actual Class} & \textbf{Predicted Legal} & \textbf{Predicted Financial} \\
+\hline
+Legal & 4 & 0 \\
+\hline
+Financial & 0 & 4 \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Human Evaluation (where applicable)}
+The two team members manually verified representative bilingual answers against the corresponding source excerpt and page number during development. A formal blinded study with external evaluators and Likert-scale ratings has not yet been completed; it is retained as future work to avoid overstating evidence.
+
+\section{Validation Results}
+Validation confirmed English-to-Hindi and Hindi-to-English retrieval, preservation of rupee amounts, percentages, dates, and names, safe rejection of Hinglish output, handling of PDF line breaks, preservation of Devanagari combining marks, and abstention for unsupported questions such as a missing PAN number.
+
+\section*{Chapter Summary}
+The controlled Review 3 benchmark and regression suite validate the implemented prototype. The results are encouraging, but broader real-document and human evaluation is required before deployment claims can be made.

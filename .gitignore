@@ -1,6 +1,7 @@
-node_modules/
+.models/
+.artifact-runtime/
+tmp/
 .env
-data/
-coverage/
-.env.*
-!.env.example
+node_modules/
+
+.vercel
